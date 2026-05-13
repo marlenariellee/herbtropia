@@ -912,3 +912,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (page === 'newsletter') initNewsletterPage();
   loadInitialData();
 });
+
+document.addEventListener('click', function(e) {
+  const link = e.target.closest('a');
+  if (!link) return;
+
+  const text = (link.textContent || '').trim().slice(0, 80);
+  const href = link.getAttribute('href') || '';
+
+  if (
+    href.includes('directory.html') ||
+    href.includes('events.html') ||
+    href.includes('practitioner-signup.html') ||
+    href.includes('submit-event.html') ||
+    href.includes('newsletter.html')
+  ) {
+    trackHerbtropiaEvent('cta_click', {
+      link_text: text,
+      link_url: href
+    });
+  }
+});
