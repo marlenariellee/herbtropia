@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N8W26T01DE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-N8W26T01DE');
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Wellness Event — Herbtropia</title>
+  <meta name="description" content="Submit a wellness event to the Herbtropia events directory.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="events">
+  <nav class="nav" id="nav"><div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="images/logos/7.png" alt="Herbtropia"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="directory.html">Practitioners</a></li>
+      <li><a href="events.html">Events</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+  <div class="nav-mobile" id="mobileNav">
+    <div class="nav-mobile-inner">
+      <p class="menu-kicker">Herbtropia Directory Beta</p>
+      <a href="index.html" onclick="closeMobile()">Home</a>
+      <a href="directory.html" onclick="closeMobile()">Browse Practitioners</a>
+      <a href="events.html" onclick="closeMobile()">Find Events</a>
+      <div class="menu-action-grid">
+        <a href="practitioner-signup.html" onclick="closeMobile()"><span>For Practitioners</span><strong>Submit a Profile</strong></a>
+        <a href="submit-event.html" onclick="closeMobile()"><span>For Hosts</span><strong>Submit an Event</strong></a>
+        <a href="newsletter.html" onclick="closeMobile()"><span>Updates</span><strong>Join Newsletter</strong></a>
+      </div>
+      <p class="menu-note">Browse the directory, submit a listing, or join the weekly Herbtropia newsletter.</p>
+    </div>
+  </div>
+
+  <section class="page-hero"><div class="hero-gradient"></div><div class="container">
+    <div class="section-label">Submit an Event</div>
+    <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Add Your Wellness<br><em>Event</em></h1>
+    <p class="page-hero-sub">Use this dedicated form to add event types, formats, service areas, cost ranges, audience tags, and a visual flyer.</p>
+  </div></section>
+
+  <section class="submit-block standalone-form-section" id="submit-event"><div class="container"><div class="submit-grid">
+    <div class="submit-copy">
+      <div class="section-label reveal">For Hosts</div>
+      <h2 class="section-title reveal reveal-delay-1">Submit a Wellness<br><em>Event</em></h2>
+      <p class="reveal reveal-delay-2">Add workshops, classes, pop-ups, retreats, markets, and community wellness experiences to the Herbtropia events directory.</p>
+      <p class="reveal reveal-delay-3"><strong>Review timeline:</strong> Event submissions are reviewed within 24 hours before appearing publicly. You’ll receive an email confirmation now and a follow-up email once your event has been approved or if it cannot be published at this time.</p>
+    </div>
+    <div class="form-box reveal">
+      <div id="eventFormWrap">
+        <h3>Submit Event</h3>
+        <p>Use public-facing event details. Fields marked with * are required. Your event will be reviewed before it appears on the website.</p>
+        <div class="review-notice"><strong>What happens next:</strong> After you submit, Herbtropia will review your event within 24 hours. You’ll receive an email confirmation now and a follow-up email once it has been approved or if updates are needed.</div>
+        <form id="eventForm">
+          <input class="honeypot" type="text" name="website_confirm" tabindex="-1" autocomplete="off">
+          <div class="form-row">
+            <div class="form-group"><label for="eventName">Event Name *</label><input id="eventName" name="eventName" class="form-input" type="text" placeholder="Name of event" required></div>
+            <div class="form-group"><label for="organizerName">Host / Organizer *</label><input id="organizerName" name="organizerName" class="form-input" type="text" placeholder="Business or host name" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="eventDate">Date *</label><input id="eventDate" name="eventDate" class="form-input" type="date" required></div>
+            <div class="form-group"><label for="startTime">Start Time</label><input id="startTime" name="startTime" class="form-input" type="time"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="eventCity">City *</label><input id="eventCity" name="city" class="form-input" type="text" placeholder="e.g. Phoenix" required></div>
+            <div class="form-group"><label for="eventState">State *</label><input id="eventState" name="state" class="form-input" type="text" placeholder="AZ" required></div>
+          </div>
+          <fieldset class="multi-check-group" data-required-multiple="category">
+  <legend>Event Type *</legend>
+  <span class="field-help">Select all event categories that apply.</span>
+  <div class="check-grid">
+    <label class="form-check-card"><input type="checkbox" name="category" value="workshop"><span>Workshop</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="class"><span>Class</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="pop-up"><span>Pop-Up</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="retreat"><span>Retreat</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="market"><span>Market</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="sound-bath"><span>Sound Bath</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="yoga-movement"><span>Yoga / Movement</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="herbal-education"><span>Herbal Education</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="community"><span>Community Gathering</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="networking"><span>Networking</span></label>
+    <label class="form-check-card"><input type="checkbox" name="category" value="other"><span>Other</span></label>
+  </div>
+</fieldset>
+          <fieldset class="multi-check-group" data-required-multiple="format">
+  <legend>Format *</legend>
+  <span class="field-help">Hybrid events can select both in-person and virtual.</span>
+  <div class="check-grid">
+    <label class="form-check-card"><input type="checkbox" name="format" value="in-person"><span>In-Person</span></label>
+    <label class="form-check-card"><input type="checkbox" name="format" value="virtual"><span>Virtual</span></label>
+    <label class="form-check-card"><input type="checkbox" name="format" value="hybrid"><span>Hybrid</span></label>
+  </div>
+</fieldset>
+          <fieldset class="multi-check-group" data-required-multiple="costType">
+  <legend>Cost Range *</legend>
+  <span class="field-help">Select multiple if there are ticket tiers.</span>
+  <div class="check-grid">
+    <label class="form-check-card"><input type="checkbox" name="costType" value="free"><span>Free</span></label>
+    <label class="form-check-card"><input type="checkbox" name="costType" value="under-25"><span>Under $25</span></label>
+    <label class="form-check-card"><input type="checkbox" name="costType" value="25-50"><span>$25–$50</span></label>
+    <label class="form-check-card"><input type="checkbox" name="costType" value="50-plus"><span>$50+</span></label>
+    <label class="form-check-card"><input type="checkbox" name="costType" value="donation"><span>Donation-Based</span></label>
+  </div>
+</fieldset>
+          <div class="form-group"><label for="price">Exact Price / Ticket Details</label><input id="price" name="price" class="form-input" type="text" placeholder="$25, free, donation, $15 early bird / $30 door"></div>
+          <fieldset class="multi-check-group">
+  <legend>Service Areas</legend>
+  <span class="field-help">Select all areas where your services/events should appear in filters.</span>
+  <div class="check-grid three-col">
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="online"><span>Online / Virtual</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="phoenix"><span>Phoenix</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="mesa"><span>Mesa</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="gilbert"><span>Gilbert</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="tempe"><span>Tempe</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="scottsdale"><span>Scottsdale</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="chandler"><span>Chandler</span></label>
+    <label class="form-check-card"><input type="checkbox" name="serviceAreas" value="other"><span>Other</span></label>
+  </div>
+</fieldset>
+          <div class="form-group"><label for="additionalLocations">Additional Event Areas</label><input id="additionalLocations" name="additionalLocations" class="form-input" type="text" placeholder="Example: Queen Creek, Glendale, nationwide virtual"></div>
+          <div class="form-group"><label for="venue">Venue / Address</label><input id="venue" name="venue" class="form-input" type="text" placeholder="Venue name or address, optional"></div>
+          <fieldset class="multi-check-group">
+  <legend>Audience / Vibe Tags</legend>
+  <span class="field-help">These show on the event profile and help visitors search.</span>
+  <div class="check-grid three-col">
+    <label class="form-check-card"><input type="checkbox" name="audience" value="beginner-friendly"><span>Beginner-Friendly</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="open-to-all"><span>Open to All</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="women-centered"><span>Women-Centered</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="bipoc-friendly"><span>BIPOC-Friendly</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="lgbtq-friendly"><span>LGBTQ+ Friendly</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="practitioner-focused"><span>Practitioner-Focused</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="family-friendly"><span>Family-Friendly</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="networking"><span>Networking</span></label>
+    <label class="form-check-card"><input type="checkbox" name="audience" value="social"><span>Social</span></label>
+  </div>
+</fieldset>
+          <fieldset class="multi-check-group">
+  <legend>Wellness Focus</legend>
+  <span class="field-help">Optional focus tags for search and event profile display.</span>
+  <div class="check-grid three-col">
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="stress-relief"><span>Stress Relief</span></label>
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="nervous-system"><span>Nervous System</span></label>
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="movement"><span>Movement</span></label>
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="herbal-support"><span>Herbal Support</span></label>
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="spiritual-wellness"><span>Spiritual Wellness</span></label>
+    <label class="form-check-card"><input type="checkbox" name="eventFocus" value="community-healing"><span>Community Healing</span></label>
+  </div>
+</fieldset>
+          <div class="form-group"><label for="eventDescription">Event Description *</label><textarea id="eventDescription" name="description" class="form-input" placeholder="What should people know before attending?" required></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label for="eventLink">RSVP / Event Link</label><input id="eventLink" name="eventLink" class="form-input" type="url" placeholder="https://..."></div>
+            <div class="form-group file-upload-group"><label for="imageFile">Upload Flyer / Event Image</label><input id="imageFile" name="imageFile" class="form-input" type="file" accept="image/*"><span class="field-help">Upload the event flyer or promo image so it can appear large inside the event pop-up. JPG, PNG, or WebP recommended. Max 5 MB.</span></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="eventEmail">Email for Herbtropia review *</label><input id="eventEmail" name="email" class="form-input" type="email" placeholder="you@email.com" required><span class="field-help">We’ll use this to send your submission confirmation and review decision.</span></div>
+            <div class="form-group"><label for="recurring">Recurring?</label><select id="recurring" name="recurring" class="form-input"><option value="one-time">One-Time</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="ongoing">Ongoing</option></select></div>
+          </div>
+          <p class="form-note">By submitting this form, you agree to receive transactional emails about this submission, including confirmation, approval, rejection, or requested updates. Newsletter signup is separate and optional.</p>
+          <fieldset class="multi-check-group">
+            <legend>Where should this event be considered?</legend>
+            <span class="field-help">Herbtropia’s website directory and @wellnesseventsaz can work together, but you can choose what you want.</span>
+            <div class="check-grid">
+              <label class="form-check-card"><input type="checkbox" name="submissionChannels" value="herbtropia-events-directory" checked><span>Herbtropia Events Directory</span></label>
+              <label class="form-check-card"><input type="checkbox" name="submissionChannels" value="wellness-events-az"><span>@wellnesseventsaz Social Promotion</span></label>
+              <label class="form-check-card"><input type="checkbox" name="submissionChannels" value="both"><span>Both if it’s a good fit</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="multi-check-group">
+            <legend>How would you like the event featured on @wellnesseventsaz?</legend>
+            <span class="field-help">Optional. This does not guarantee coverage; it helps us understand your preferred feature style.</span>
+            <div class="check-grid">
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="event-calendar-post"><span>Event Calendar Post</span></label>
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="instagram-story"><span>Instagram Story</span></label>
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="feed-carousel"><span>Feed Carousel</span></label>
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="reel-tiktok"><span>Reel / TikTok</span></label>
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="weekly-roundup"><span>Weekly Roundup</span></label>
+              <label class="form-check-card"><input type="checkbox" name="socialFeatureType" value="no-preference"><span>No Preference</span></label>
+            </div>
+          </fieldset>
+          <div class="form-row">
+            <div class="form-group"><label for="eventSocialHandles">Event / Host Social Handles</label><input id="eventSocialHandles" name="eventSocialHandles" class="form-input" type="text" placeholder="@yourhandle, @venuehandle"></div>
+            <div class="form-group"><label for="featureDeadline">Feature Deadline / Best Post Date</label><input id="featureDeadline" name="featureDeadline" class="form-input" type="text" placeholder="Example: please post by June 1, or week of event"></div>
+          </div>
+          <div class="form-group"><label for="socialCaptionNotes">Social Feature Notes</label><textarea id="socialCaptionNotes" name="socialCaptionNotes" class="form-input" placeholder="Optional: key details, caption notes, hashtags, sponsor tags, vibe, parking notes, dress code, or anything people should know."></textarea></div>
+          <fieldset class="multi-check-group">
+            <legend>In-Person Event Review Interest</legend>
+            <span class="field-help">Optional. This is for Wellness Events AZ/Herbtropia content visits. Selecting yes does not guarantee attendance or a positive review.</span>
+            <div class="check-grid">
+              <label class="form-check-card"><input type="checkbox" name="reviewInterest" value="yes-review-in-person"><span>Yes, I’d like you to consider attending/reviewing</span></label>
+              <label class="form-check-card"><input type="checkbox" name="reviewInterest" value="media-pass-available"><span>Media pass / comp ticket available</span></label>
+              <label class="form-check-card"><input type="checkbox" name="reviewInterest" value="open-to-content-collab"><span>Open to content collaboration</span></label>
+              <label class="form-check-card"><input type="checkbox" name="reviewInterest" value="not-right-now"><span>Not right now</span></label>
+            </div>
+          </fieldset>
+          <label class="form-check-card consent-line"><input type="checkbox" name="reviewAcknowledgement" value="acknowledged"><span>I understand that requesting social promotion or an in-person review does not guarantee coverage, attendance, or a positive review.</span></label>
+
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Submit Event for Review <span class="arrow">→</span></button>
+          <p class="form-note">This form sends your event to Herbtropia’s backend for review. It will not appear publicly until approved.</p>
+        </form>
+      </div>
+      <div class="form-success" id="eventSuccess"><div class="check-circle">✓</div><h4>Event submitted for review!</h4><p>Thank you for submitting your event. Herbtropia will review it within 24 hours and send a follow-up email once it has been approved or if updates are needed.</p></div>
+    </div>
+  </div></div></section>
+
+  <div class="modal-backdrop" id="eventModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close event">×</button>
+      <div id="eventModalContent"></div>
+    </div>
+  </div>
+
+  
+
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="footer-logo"><img src="images/logos/1.png" alt="Herbtropia"></div><p>Herbtropia helps people discover holistic wellness practitioners and events.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="directory.html">Practitioners</a><a href="events.html">Events</a><a href="newsletter.html">Newsletter</a></div>
+      <div class="footer-col"><h4>Submit</h4><a href="practitioner-signup.html">Join the Directory</a><a href="submit-event.html">Submit an Event</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="mailto:herbtropiaco@gmail.com">herbtropiaco@gmail.com</a><a href="https://instagram.com/herbtropia" target="_blank">Instagram</a><a href="https://tiktok.com/@herbtropia" target="_blank">TikTok</a></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p><div class="footer-socials"><a href="https://instagram.com/herbtropia" target="_blank"><img src="images/icons/instagram.png"></a><a href="https://tiktok.com/@herbtropia" target="_blank"><img src="images/icons/tik-tok.png"></a><a href="#"><img src="images/icons/youtube.png"></a></div></div>
+  </div></footer>
+  <script src="script.js"></script>
+</body>
+</html>
