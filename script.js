@@ -9,6 +9,15 @@ const HERBTROPIA_CONFIG = {
   LOCAL_STORAGE_KEY: 'herbtropia_beta_directory'
 };
 
+function trackHerbtropiaEvent(eventName, params = {}) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, {
+      ...params,
+      page_path: window.location.pathname
+    });
+  }
+}
+
 const CATEGORY_LABELS = {
   acupuncture: 'Acupuncture', herbalist: 'Herbalist / Herbal Medicine', naturopathic: 'Naturopathic Medicine', functional: 'Functional Medicine',
   breathwork: 'Breathwork', 'sound-healing': 'Sound Healing', massage: 'Massage / Bodywork', somatic: 'Somatic Wellness', yoga: 'Yoga / Movement',
