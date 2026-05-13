@@ -595,6 +595,11 @@ function renderPractitionerCard(p) {
 function openPractitionerModal(id) {
   const p = state.practitioners.find(item => item.id === id);
   if (!p) return;
+
+  trackHerbtropiaEvent('profile_open', {
+  profile_id: id
+  });
+  
   const modal = document.getElementById('profileModal');
   const content = document.getElementById('modalContent');
   const category = displayLabels(p.category, CATEGORY_LABELS) || 'Practitioner';
@@ -658,11 +663,16 @@ async function handlePractitionerSubmit(e) {
       category: data.category,
       serviceFormat: data.serviceFormat
     };
-    await submitToBackend(itemWithUploadPayload);
-    form.reset();
-    if (typeof window.resetAdditionalAddressCards === 'function') window.resetAdditionalAddressCards();
-    document.getElementById('practitionerFormWrap').style.display = 'none';
-    document.getElementById('practitionerSuccess').style.display = 'block';
+  await submitToBackend(itemWithUploadPayload);
+
+  trackHerbtropiaEvent('practitioner_submission', {
+    form_name: 'practitioner_signup'
+  });
+  
+  form.reset();
+  if (typeof window.resetAdditionalAddressCards === 'function') window.resetAdditionalAddressCards();
+  document.getElementById('practitionerFormWrap').style.display = 'none';
+  document.getElementById('practitionerSuccess').style.display = 'block';
   } catch (error) {
     console.warn('Could not submit practitioner profile.', error);
   } finally {
@@ -751,6 +761,11 @@ function renderEventCard(event) {
 function openEventModal(id) {
   const event = state.events.find(item => item.id === id);
   if (!event) return;
+
+  trackHerbtropiaEvent('event_open', {
+  event_id: id
+  });
+  
   const modal = document.getElementById('eventModal');
   const content = document.getElementById('eventModalContent');
   const category = displayLabels(event.category, CATEGORY_LABELS) || 'Event';
@@ -808,10 +823,15 @@ async function handleEventSubmit(e) {
       submittedAt: new Date().toISOString(),
       eventDate: data.eventDate
     };
-    await submitToBackend(itemWithUploadPayload);
-    form.reset();
-    document.getElementById('eventFormWrap').style.display = 'none';
-    document.getElementById('eventSuccess').style.display = 'block';
+  await submitToBackend(itemWithUploadPayload);
+
+  trackHerbtropiaEvent('event_submission', {
+  form_name: 'event_submission'
+  });
+
+  form.reset();
+  document.getElementById('eventFormWrap').style.display = 'none';
+  document.getElementById('eventSuccess').style.display = 'block';    
   } catch (error) {
     console.warn('Could not submit event.', error);
   } finally {
@@ -851,10 +871,15 @@ async function handleNewsletterSubmit(e) {
       status: 'Subscribed',
       createdAt: new Date().toISOString()
     };
-    await submitToBackend(item);
-    form.reset();
-    document.getElementById('newsletterFormWrap').style.display = 'none';
-    document.getElementById('newsletterSuccess').style.display = 'block';
+  await submitToBackend(item);
+
+  trackHerbtropiaEvent('newsletter_signup', {
+  form_name: 'newsletter'
+  });
+
+  form.reset();
+  document.getElementById('newsletterFormWrap').style.display = 'none';
+  document.getElementById('newsletterSuccess').style.display = 'block';
   } catch (error) {
     console.warn('Could not submit newsletter signup.', error);
   } finally {
