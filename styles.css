@@ -1430,3 +1430,119 @@ button[disabled] {
 .event-card .card-actions {
   margin-top: auto;
 }
+
+/* ============================================
+   CLEAN DIRECTORY CARD SPACING
+   Keeps cards clean after hiding long descriptions
+   ============================================ */
+
+.profile-card,
+.event-card {
+  min-height: 520px;
+  padding: clamp(32px, 4vw, 46px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Avatar/logo spacing on practitioner cards */
+.profile-card .avatar {
+  margin-bottom: 28px;
+}
+
+/* Keep badge/pill spacing consistent */
+.profile-card .card-badge,
+.event-card .card-badge {
+  margin-bottom: 26px;
+  max-width: 100%;
+}
+
+/* If an event has two badges, keep them stacked cleanly */
+.event-card .card-badge + .card-badge {
+  margin-top: 0;
+}
+
+/* Title spacing */
+.profile-card h3,
+.event-card h3 {
+  margin: 0 0 18px;
+  line-height: 1.12;
+}
+
+/* Make title buttons inherit the pretty title styling */
+.card-title-btn {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: left;
+  background: transparent;
+  padding: 0;
+}
+
+/* Meta text: date, location, format */
+.profile-card .card-meta,
+.event-card .card-meta {
+  margin-bottom: 30px;
+  line-height: 1.55;
+}
+
+/* Tags sit near the bottom, but above buttons */
+.profile-card .tag-row,
+.event-card .tag-row {
+  margin-top: auto;
+  margin-bottom: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  max-height: 92px;
+  overflow: hidden;
+}
+
+/* Keep buttons aligned and intentional */
+.profile-card .card-actions,
+.event-card .card-actions {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+/* Make buttons feel balanced */
+.profile-card .card-action,
+.event-card .card-action {
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Mobile card polish */
+@media (max-width: 700px) {
+  .profile-card,
+  .event-card {
+    min-height: 500px;
+    padding: 34px 30px;
+  }
+
+  .profile-card .tag-row,
+  .event-card .tag-row {
+    max-height: 86px;
+    margin-bottom: 24px;
+  }
+
+  .profile-card .card-actions,
+  .event-card .card-actions {
+    gap: 12px;
+  }
+
+  .profile-card .card-action,
+  .event-card .card-action {
+    min-height: 50px;
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
