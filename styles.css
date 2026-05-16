@@ -2286,7 +2286,7 @@ body {
 .nav-logo {
   display: flex !important;
   align-items: center !important;
-  min-width: clamp(240px, 30vw, 360px) !important;
+  min-width: clamp(260px, 32vw, 390px) !important;
   height: 100% !important;
   overflow: visible !important;
   position: relative !important;
@@ -2295,11 +2295,11 @@ body {
 
 #nav .nav-logo img,
 .nav-logo img {
-  height: 56px !important;
+  height: 60px !important;
   width: auto !important;
-  max-width: 320px !important;
+  max-width: 350px !important;
   object-fit: contain !important;
-  transform: scale(1.85) !important;
+  transform: scale(1.95) !important;
   transform-origin: left center !important;
 }
 
@@ -2561,14 +2561,14 @@ body.mobile-menu-open {
 
   #nav .nav-logo,
 .nav-logo {
-  min-width: 220px !important;
+  min-width: 235px !important;
 }
 
 #nav .nav-logo img,
 .nav-logo img {
-  height: 46px !important;
-  max-width: 260px !important;
-  transform: scale(1.75) !important;
+  height: 50px !important;
+  max-width: 285px !important;
+  transform: scale(1.85) !important;
 }
 
   .horizontal-card.profile-card,
@@ -2612,14 +2612,14 @@ body.mobile-menu-open {
 
   #nav .nav-logo,
   .nav-logo {
-    min-width: 185px !important;
+    min-width: 200px !important;
   }
   
   #nav .nav-logo img,
   .nav-logo img {
-    height: 40px !important;
-    max-width: 220px !important;
-    transform: scale(1.65) !important;
+    height: 43px !important;
+    max-width: 235px !important;
+    transform: scale(1.75) !important;
   }
 
   #menuToggle.menu-toggle,
