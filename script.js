@@ -797,7 +797,7 @@ function renderEventCard(event) {
   const location = formatCardLocation(event) || format;
 
   const tags = mergeTagValues(event.audience, event.eventFocus)
-    .slice(0, 4)
+    .slice(0, 3)
     .map(tag => `<span class="tag">${escapeHTML(displayLabels(tag, { ...CATEGORY_LABELS, ...FORMAT_LABELS, ...LOCATION_LABELS, ...COST_LABELS }) || labelizeSlug(tag))}</span>`)
     .join('');
 
