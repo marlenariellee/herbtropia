@@ -621,7 +621,7 @@ function renderPractitionerCard(p) {
   const format = displayLabels(p.serviceFormat, FORMAT_LABELS) || 'Format TBD';
   const location = formatCardLocation(p);
   const tags = mergeTagValues(p.wellnessFocus, p.serviceTags)
-    .slice(0, 5)
+    .slice(0, 4)
     .map(tag => `<span class="tag">${escapeHTML(displayLabels(tag, { ...CATEGORY_LABELS, ...FORMAT_LABELS, ...LOCATION_LABELS }) || labelizeSlug(tag))}</span>`)
     .join('');
 
@@ -797,7 +797,7 @@ function renderEventCard(event) {
   const location = formatCardLocation(event) || format;
 
   const tags = mergeTagValues(event.audience, event.eventFocus)
-    .slice(0, 5)
+    .slice(0, 4)
     .map(tag => `<span class="tag">${escapeHTML(displayLabels(tag, { ...CATEGORY_LABELS, ...FORMAT_LABELS, ...LOCATION_LABELS, ...COST_LABELS }) || labelizeSlug(tag))}</span>`)
     .join('');
 
