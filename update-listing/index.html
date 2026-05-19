@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request Listing Update — Herbtropia</title>
+  <meta name="description" content="Request an update to an approved Herbtropia listing.">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="update-request">
+  <a href="/" class="update-page-logo" aria-label="Go to Herbtropia homepage">
+    <img src="/images/logos/7.png" alt="Herbtropia">
+  </a>
+
+  <section class="page-hero">
+    <div class="hero-gradient"></div>
+    <div class="container">
+      <div class="section-label">Listing Update</div>
+      <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">
+        Request an<br><em>Update</em>
+      </h1>
+      <p class="page-hero-sub">
+        Use this private form to request changes to an approved Herbtropia practitioner profile or event listing.
+      </p>
+    </div>
+  </section>
+
+  <section class="submit-block standalone-form-section">
+    <div class="container">
+      <div class="submit-grid">
+        <div class="submit-copy">
+          <div class="section-label reveal">Approved Listings Only</div>
+          <h2 class="section-title reveal reveal-delay-1">
+            Update Your<br><em>Listing</em>
+          </h2>
+          <p class="reveal reveal-delay-2">
+            This form is for approved Herbtropia listings only. Updates are reviewed before changes appear publicly.
+          </p>
+        </div>
+
+        <div class="form-box reveal">
+          <div id="updateFormWrap">
+            <h3>Request Listing Update</h3>
+            <p>Tell us what needs to change. Fields marked with * are required.</p>
+
+            <form id="updateRequestForm">
+              <input class="honeypot" type="text" name="website_confirm" tabindex="-1" autocomplete="off">
+
+              <input type="hidden" id="listingType" name="listingType">
+              <input type="hidden" id="listingId" name="listingId">
+              <input type="hidden" id="updateToken" name="updateToken">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="listingName">Listing Name *</label>
+                  <input id="listingName" name="listingName" class="form-input" type="text" placeholder="Business, practitioner, or event name" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="currentEmail">Current Email on Listing *</label>
+                  <input id="currentEmail" name="currentEmail" class="form-input" type="email" placeholder="email used on your approved listing" required>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="requesterName">Your Name *</label>
+                  <input id="requesterName" name="requesterName" class="form-input" type="text" placeholder="Your name" required>
+                </div>
+
+                <div class="form-group">
+                  <label for="newEmail">New Email, if changing</label>
+                  <input id="newEmail" name="newEmail" class="form-input" type="email" placeholder="new@email.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="requesterRelationship">Relationship to Listing *</label>
+                <select id="requesterRelationship" name="requesterRelationship" class="form-input" required>
+                  <option value="">Select one</option>
+                  <option value="owner">Owner / Practitioner / Host</option>
+                  <option value="team-member">Team Member</option>
+                  <option value="marketing-contact">Marketing Contact</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="requestedChanges">What needs to be updated? *</label>
+                <textarea id="requestedChanges" name="requestedChanges" class="form-input" placeholder="Example: Replace photo, update booking link, change address, update event time, fix typo, etc." required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="website">Website</label>
+                  <input id="website" name="website" class="form-input" type="text" inputmode="url" placeholder="yourwebsite.com">
+                </div>
+
+                <div class="form-group">
+                  <label for="bookingLink">Booking / RSVP Link</label>
+                  <input id="bookingLink" name="bookingLink" class="form-input" type="text" inputmode="url" placeholder="bookinglink.com">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="instagram">Instagram / Social Link</label>
+                <input id="instagram" name="instagram" class="form-input" type="text" placeholder="@handle or instagram.com/handle">
+              </div>
+
+              <div class="form-group file-upload-group">
+                <label for="photoFile">Upload New Photo / Flyer</label>
+                <input id="photoFile" name="photoFile" class="form-input" type="file" accept="image/*">
+                <span class="field-help">Upload only if you want to replace the current practitioner photo or event flyer.</span>
+              </div>
+
+              <button type="submit" class="btn-primary" style="width:100%;justify-content:center">
+                Submit Update Request <span class="arrow">→</span>
+              </button>
+
+              <p class="form-note">
+                Update requests are reviewed before public listing changes are made.
+              </p>
+            </form>
+          </div>
+
+          <div class="form-success" id="updateSuccess">
+            <div class="check-circle">✓</div>
+            <h4>Update request received!</h4>
+            <p>Herbtropia will review your request and update the listing if everything checks out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="/script.js"></script>
+</body>
+</html>
