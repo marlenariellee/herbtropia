@@ -28,7 +28,13 @@ const STATUS_OPTIONS = ['Pending Review', 'Approved', 'Rejected', 'Needs Edits',
 
 const COMMON_REVIEW_FIELDS = [
   'id', 'type', 'status', 'submittedAt', 'statusUpdatedAt', 'reviewedAt', 'reviewNotes',
-  'submitterConfirmationSent', 'approvedEmailSent', 'rejectedEmailSent', 'emailUpdatedAt', 'updateToken'
+  'submitterConfirmationSent',
+  'submitterConfirmationAt',
+  'submitterConfirmationMethod',
+  'submitterConfirmationTemplateKey',
+  'submitterConfirmationMessageId',
+  'submitterConfirmationDebug',
+  'approvedEmailSent', 'rejectedEmailSent', 'emailUpdatedAt', 'updateToken'
 ];
 
 const DIRECTORY_LISTING_FIELDS = [
@@ -401,11 +407,15 @@ function handleListingSubmission_(data) {
 
   sendAdminNotification_('listing', data, rowNumber);
 
-  if (sendSubmitterConfirmation_('listing', data)) {
-    setCellByHeader_(sheet, rowNumber, 'submitterConfirmationSent', 'Yes');
-  }
+  const confirmationResult = sendSubmitterConfirmation_('listing', data);
+  recordSubmitterConfirmationResult_(sheet, rowNumber, confirmationResult);
 
-  return output_({ ok: true, status: 'Pending Review', id: data.id });
+  return output_({
+    ok: true,
+    status: 'Pending Review',
+    id: data.id,
+    submitterConfirmation: confirmationResult
+  });
 }
 
 function handleEventSubmission_(data) {
@@ -429,15 +439,19 @@ function handleEventSubmission_(data) {
 
   sendAdminNotification_('event', data, rowNumber);
 
-  if (sendSubmitterConfirmation_('event', data)) {
-    setCellByHeader_(sheet, rowNumber, 'submitterConfirmationSent', 'Yes');
-  }
+  const confirmationResult = sendSubmitterConfirmation_('event', data);
+  recordSubmitterConfirmationResult_(sheet, rowNumber, confirmationResult);
 
   if (typeof hbSendInPersonReviewInterestIfNeeded_ === 'function') {
     hbSendInPersonReviewInterestIfNeeded_(data);
   }
 
-  return output_({ ok: true, status: 'Pending Review', id: data.id });
+  return output_({
+    ok: true,
+    status: 'Pending Review',
+    id: data.id,
+    submitterConfirmation: confirmationResult
+  });
 }
 
 
@@ -629,24 +643,79 @@ function sendAdminNotification_(type, data, rowNumber) {
 
 
 function hbSendFirstAvailableTemplate_(templateKeys, toEmail, toName, data) {
-  if (typeof hbSendTemplateWithFallbackLog_ !== 'function') return { ok: false, error: 'Brevo template helper not found.' };
+  if (typeof hbSendTemplateWithFallbackLog_ !== 'function') {
+    return {
+      ok: false,
+      error: 'Brevo template helper not found.',
+      attempts: []
+    };
+  }
+
+  const attempts = [];
+
   for (const key of templateKeys) {
     const result = hbSendTemplateWithFallbackLog_(key, toEmail, toName, data);
-    if (result && result.ok) return result;
+    const attempt = {
+      templateKey: key,
+      ok: Boolean(result && result.ok),
+      statusCode: result && result.statusCode ? result.statusCode : '',
+      error: result && result.error ? result.error : '',
+      response: result && result.response ? result.response : ''
+    };
+    attempts.push(attempt);
+
+    if (result && result.ok) {
+      return {
+        ...result,
+        templateKey: key,
+        attempts: attempts
+      };
+    }
   }
-  return { ok: false, error: 'No Brevo template key succeeded: ' + templateKeys.join(', ') };
+
+  return {
+    ok: false,
+    error: 'No Brevo template key succeeded: ' + templateKeys.join(', '),
+    attempts: attempts
+  };
 }
 
 function sendSubmitterConfirmation_(type, data) {
-  if (!data.email) return false;
+  const email = String(data.email || '').trim();
+
+  if (!email) {
+    return {
+      ok: false,
+      method: 'none',
+      error: 'Missing recipient email on submission data.'
+    };
+  }
+
+  data.email = email;
 
   const isEvent = type === 'event';
   const title = getTitle_(type, data);
   const recipientName = data.contactName || data.name || data.organizerName || data.listingName || data.businessName || data.eventName || '';
-  const templateKeys = isEvent ? ['EVENT_RECEIVED'] : ['LISTING_RECEIVED', 'PRACTITIONER_RECEIVED'];
 
-  const brevoResult = hbSendFirstAvailableTemplate_(templateKeys, data.email, recipientName, data);
-  if (brevoResult.ok) return true;
+  // Support both the original property names and the newer explicit property names.
+  // This prevents the live website from silently skipping the received email because of a naming mismatch.
+  const templateKeys = isEvent
+    ? ['EVENT_RECEIVED', 'EVENT_SUBMISSION_RECEIVED']
+    : ['LISTING_RECEIVED', 'LISTING_SUBMISSION_RECEIVED', 'PRACTITIONER_RECEIVED'];
+
+  const brevoResult = hbSendFirstAvailableTemplate_(templateKeys, email, recipientName, data);
+
+  if (brevoResult.ok) {
+    return {
+      ok: true,
+      method: 'brevo',
+      templateKey: brevoResult.templateKey || '',
+      statusCode: brevoResult.statusCode || '',
+      messageId: hbExtractBrevoMessageId_(brevoResult.response),
+      response: brevoResult.response || '',
+      attempts: brevoResult.attempts || []
+    };
+  }
 
   const noun = isEvent ? 'event' : 'directory listing';
   const subject = `We received your Herbtropia ${noun} submission 🌿`;
@@ -658,15 +727,101 @@ function sendSubmitterConfirmation_(type, data) {
     <p>With care,<br>Herbtropia</p>
   `;
 
-  MailApp.sendEmail({
-    to: data.email,
-    subject: subject,
-    htmlBody: htmlBody,
-    body: stripHtml_(htmlBody)
-  });
+  try {
+    MailApp.sendEmail({
+      to: email,
+      subject: subject,
+      htmlBody: htmlBody,
+      body: stripHtml_(htmlBody)
+    });
 
-  return true;
+    return {
+      ok: true,
+      method: 'mailapp-fallback',
+      templateKey: '',
+      statusCode: '',
+      messageId: '',
+      error: brevoResult.error || '',
+      attempts: brevoResult.attempts || []
+    };
+
+  } catch (error) {
+    return {
+      ok: false,
+      method: 'failed',
+      templateKey: '',
+      statusCode: '',
+      messageId: '',
+      error: String(error && error.message ? error.message : error),
+      attempts: brevoResult.attempts || []
+    };
+  }
 }
+
+function recordSubmitterConfirmationResult_(sheet, rowNumber, result) {
+  const sent = result && result.ok ? 'Yes' : 'No';
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationSent', sent);
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationAt', new Date().toISOString());
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationMethod', result && result.method ? result.method : '');
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationTemplateKey', result && result.templateKey ? result.templateKey : '');
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationMessageId', result && result.messageId ? result.messageId : '');
+  setCellByHeader_(sheet, rowNumber, 'submitterConfirmationDebug', hbStringifyForCell_(result || {}, 45000));
+}
+
+function hbExtractBrevoMessageId_(responseText) {
+  try {
+    const parsed = JSON.parse(String(responseText || '{}'));
+    return parsed.messageId || parsed.messageIds || '';
+  } catch (error) {
+    return '';
+  }
+}
+
+function hbStringifyForCell_(value, maxLength) {
+  let text = '';
+  try {
+    text = JSON.stringify(value);
+  } catch (error) {
+    text = String(value || '');
+  }
+
+  const limit = maxLength || 45000;
+  return text.length > limit ? text.slice(0, limit - 20) + '... [truncated]' : text;
+}
+
+function getLatestSubmissionRow_(sheetName) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+  if (!sheet) throw new Error('Sheet not found: ' + sheetName);
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow < 2) throw new Error('No submissions found in sheet: ' + sheetName);
+
+  const headers = getHeaders_(sheet);
+  const rowValues = sheet.getRange(lastRow, 1, 1, sheet.getLastColumn()).getValues()[0];
+
+  return {
+    sheet: sheet,
+    rowNumber: lastRow,
+    data: rowToObject_(headers, rowValues)
+  };
+}
+
+function runDebugSendReceivedForLatestEventSubmission() {
+  const latest = getLatestSubmissionRow_(SHEETS.event);
+  const result = sendSubmitterConfirmation_('event', latest.data);
+  recordSubmitterConfirmationResult_(latest.sheet, latest.rowNumber, result);
+  Logger.log(JSON.stringify(result, null, 2));
+  return result;
+}
+
+function runDebugSendReceivedForLatestListingSubmission() {
+  const latest = getLatestSubmissionRow_(SHEETS.listings);
+  const result = sendSubmitterConfirmation_('listing', latest.data);
+  recordSubmitterConfirmationResult_(latest.sheet, latest.rowNumber, result);
+  Logger.log(JSON.stringify(result, null, 2));
+  return result;
+}
+
 
 function sendApprovedEmail_(type, data) {
   if (!data.email) return false;
@@ -1347,6 +1502,28 @@ function runTestEventReceivedTemplate() {
       organizerName: 'Marlena',
       eventName: 'Test Wellness Event',
       email: ADMIN_EMAIL,
+      city: 'Phoenix',
+      state: 'AZ',
+      eventDate: '2026-06-01'
+    }
+  );
+
+  Logger.log(JSON.stringify(result, null, 2));
+  return result;
+}
+
+function runTestEventReceivedTemplateToCustomEmail() {
+  // Change this one line to the exact email you typed into the website form.
+  const testRecipientEmail = 'replace-with-the-email-you-tested@example.com';
+
+  const result = hbSendBrevoTemplate_(
+    'EVENT_RECEIVED',
+    testRecipientEmail,
+    'Website Test Recipient',
+    {
+      organizerName: 'Website Test Recipient',
+      eventName: 'Test Wellness Event',
+      email: testRecipientEmail,
       city: 'Phoenix',
       state: 'AZ',
       eventDate: '2026-06-01'
