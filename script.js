@@ -315,43 +315,6 @@ function normalizeUrl(value) {
   return `https://${raw}`;
 }
 
-function normalizeSubmittedUrlValue(value) {
-  const raw = String(value || '').trim();
-  if (!raw) return '';
-  if (/^(data:|blob:)/i.test(raw)) return raw;
-  if (raw.startsWith('@')) return `https://instagram.com/${raw.replace(/^@+/, '')}`;
-  if (/^https?:\/\//i.test(raw)) return raw;
-  if (/^mailto:/i.test(raw) || /^tel:/i.test(raw)) return raw;
-  return `https://${raw.replace(/^\/+/, '')}`;
-}
-
-function normalizeSubmittedUrls(data) {
-  ['website', 'bookingLink', 'eventLink', 'instagram', 'resourceUrl'].forEach((key) => {
-    if (data[key]) data[key] = normalizeSubmittedUrlValue(data[key]);
-  });
-  return data;
-}
-
-function initUrlInputPolish() {
-  const urlFieldIds = ['website', 'bookingLink', 'eventLink', 'resourceUrl', 'instagram'];
-  urlFieldIds.forEach((id) => {
-    const input = document.getElementById(id);
-    if (!input) return;
-    // Use text fields so visitors can enter domain.com instead of a full https:// URL.
-    // The value is normalized right before submission and before public links render.
-    if (input.type === 'url') input.type = 'text';
-    input.setAttribute('inputmode', 'url');
-    if (id === 'eventLink') input.setAttribute('placeholder', 'eventlink.com/your-event');
-    if (id === 'website') input.setAttribute('placeholder', 'yourwebsite.com');
-    if (id === 'bookingLink') input.setAttribute('placeholder', 'bookinglink.com/your-page');
-    input.addEventListener('blur', () => {
-      const raw = input.value.trim();
-      if (!raw) return;
-      input.value = normalizeSubmittedUrlValue(raw);
-    });
-  });
-}
-
 function getInitials(name) {
   const source = String(name || 'Herbtropia Listing').trim().split(/\s+/).slice(0, 2).map(part => part[0]).join('');
   return source.toUpperCase() || 'H';
@@ -860,7 +823,7 @@ async function handleListingSubmit(e) {
   }
 
   try {
-    const data = normalizeSubmittedUrls(await getFormData(form));
+    const data = await getFormData(form);
     if (data.website_confirm) return;
     const itemWithUploadPayload = {
       ...data,
@@ -890,7 +853,6 @@ async function handleListingSubmit(e) {
     if (success) success.style.display = 'block';
   } catch (error) {
     console.warn('Could not submit directory listing.', error);
-    alert('Something went wrong while submitting this listing. Please check required fields, make sure uploaded images are under 5 MB, and try again.');
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
@@ -942,61 +904,14 @@ function eventMatches(event) {
   return true;
 }
 
-function getEventDateObject(event) {
-  const raw = String(event.eventDate || '').trim();
-  if (!raw) return null;
-
-  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
-    const [year, month, day] = raw.split('-').map(Number);
-    return new Date(year, month - 1, day, 12, 0, 0);
-  }
-
-  const parsed = new Date(raw);
-  return Number.isNaN(parsed.getTime()) ? null : parsed;
-}
-
-function compareEventsByDate(a, b) {
-  const dateA = getEventDateObject(a);
-  const dateB = getEventDateObject(b);
-
-  if (!dateA && !dateB) return String(a.eventName || '').localeCompare(String(b.eventName || ''));
-  if (!dateA) return 1;
-  if (!dateB) return -1;
-
-  const dateDifference = dateA.getTime() - dateB.getTime();
-  if (dateDifference !== 0) return dateDifference;
-
-  const timeA = String(a.startTime || '99:99');
-  const timeB = String(b.startTime || '99:99');
-  return timeA.localeCompare(timeB);
-}
-
-function getEventMonthLabel(event) {
-  const date = getEventDateObject(event);
-  if (!date) return 'Date TBD';
-  return date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
-}
-
-function renderEventGroups(events) {
-  let currentMonth = '';
-  return events.map((event) => {
-    const monthLabel = getEventMonthLabel(event);
-    const heading = monthLabel !== currentMonth
-      ? `<div class="event-month-heading"><h2>${escapeHTML(monthLabel)}</h2></div>`
-      : '';
-    currentMonth = monthLabel;
-    return `${heading}${renderEventCard(event)}`;
-  }).join('');
-}
-
 function renderEvents() {
   const grid = document.getElementById('eventGrid');
   const empty = document.getElementById('eventEmpty');
   const count = document.getElementById('eventCount');
   if (!grid) return;
   updateFilterBadge('event');
-  const matches = state.events.filter(eventMatches).sort(compareEventsByDate);
-  grid.innerHTML = renderEventGroups(matches);
+  const matches = state.events.filter(eventMatches).sort((a, b) => String(a.eventDate || '').localeCompare(String(b.eventDate || '')));
+  grid.innerHTML = matches.map(renderEventCard).join('');
   if (count) count.textContent = `${matches.length} event${matches.length === 1 ? '' : 's'} showing`;
   if (empty) empty.style.display = matches.length ? 'none' : 'block';
   grid.style.display = matches.length ? 'grid' : 'none';
@@ -1106,7 +1021,7 @@ async function handleEventSubmit(e) {
   }
 
   try {
-    const data = normalizeSubmittedUrls(await getFormData(form));
+    const data = await getFormData(form);
     if (data.website_confirm) return;
     const itemWithUploadPayload = {
       ...data,
@@ -1127,7 +1042,6 @@ async function handleEventSubmit(e) {
   document.getElementById('eventSuccess').style.display = 'block';    
   } catch (error) {
     console.warn('Could not submit event.', error);
-    alert('Something went wrong while submitting this event. Please check required fields, make sure uploaded images are under 5 MB, and try again.');
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
@@ -1346,7 +1260,6 @@ function renderCurrentPage() {
 document.addEventListener('DOMContentLoaded', () => {
   initReveals();
   initSmoothScroll();
-  initUrlInputPolish();
   const page = document.body.dataset.page;
   initAddressBuilder();
   if (page === 'directory' || page === 'submit-listing') initDirectoryPage();
@@ -1421,7 +1334,7 @@ async function handleUpdateRequestSubmit(e) {
   }
 
   try {
-    const data = normalizeSubmittedUrls(await getFormData(form));
+    const data = await getFormData(form);
     if (data.website_confirm) return;
 
     const item = {
@@ -1439,7 +1352,6 @@ async function handleUpdateRequestSubmit(e) {
     document.getElementById('updateSuccess').style.display = 'block';
   } catch (error) {
     console.warn('Could not submit update request.', error);
-    alert('Something went wrong while submitting this update request. Please check required fields, make sure uploaded images are under 5 MB, and try again.');
   } finally {
     if (submitButton) {
       submitButton.disabled = false;
@@ -1447,3 +1359,299 @@ async function handleUpdateRequestSubmit(e) {
     }
   }
 }
+
+// ============================================
+// CARD VIEW TOGGLES + PAGINATION + EDUCATION POLISH
+// Added May 2026: lets users switch listings/events between list and grid cards,
+// limits each public collection to 20 cards per page, and gives education cards
+// a blog-style presentation without changing the spreadsheet backend.
+// ============================================
+const HERBTROPIA_PAGE_SIZE = 20;
+const HERBTROPIA_VIEW_KEY_PREFIX = 'herbtropia_view_mode_';
+const herbtropiaPageState = { listing: 1, event: 1, education: 1 };
+const herbtropiaLastFilterSignature = { listing: '', event: '', education: '' };
+
+function getViewMode(scope) {
+  try {
+    return localStorage.getItem(`${HERBTROPIA_VIEW_KEY_PREFIX}${scope}`) || (scope === 'education' ? 'grid' : 'list');
+  } catch (error) {
+    return scope === 'education' ? 'grid' : 'list';
+  }
+}
+
+function setViewMode(scope, mode) {
+  const safeMode = mode === 'grid' ? 'grid' : 'list';
+  try {
+    localStorage.setItem(`${HERBTROPIA_VIEW_KEY_PREFIX}${scope}`, safeMode);
+  } catch (error) {
+    console.warn('Could not save Herbtropia view mode.', error);
+  }
+  if (scope === 'listing') renderListings();
+  if (scope === 'event') renderEvents();
+  if (scope === 'education') renderEducation();
+}
+
+function getFilterSignature(scope) {
+  const searchId = scope === 'listing' ? 'listingSearch' : scope === 'event' ? 'eventSearch' : 'educationSearch';
+  const searchValue = String(document.getElementById(searchId)?.value || '').trim().toLowerCase();
+  const checked = Array.from(document.querySelectorAll(`input[data-${scope}-filter]:checked`))
+    .map(input => `${input.getAttribute(`data-${scope}-filter`)}:${input.value}`)
+    .sort();
+  return JSON.stringify({ searchValue, checked });
+}
+
+function getPagedItems(scope, items) {
+  const currentSignature = getFilterSignature(scope);
+  if (herbtropiaLastFilterSignature[scope] !== currentSignature) {
+    herbtropiaPageState[scope] = 1;
+    herbtropiaLastFilterSignature[scope] = currentSignature;
+  }
+
+  const totalPages = Math.max(1, Math.ceil(items.length / HERBTROPIA_PAGE_SIZE));
+  herbtropiaPageState[scope] = Math.min(Math.max(1, herbtropiaPageState[scope] || 1), totalPages);
+  const page = herbtropiaPageState[scope];
+  const start = (page - 1) * HERBTROPIA_PAGE_SIZE;
+  return {
+    page,
+    totalPages,
+    start,
+    end: Math.min(items.length, start + HERBTROPIA_PAGE_SIZE),
+    total: items.length,
+    items: items.slice(start, start + HERBTROPIA_PAGE_SIZE)
+  };
+}
+
+function renderCollectionControls(scope, grid, paged, options = {}) {
+  if (!grid || !grid.parentElement) return;
+  const parent = grid.parentElement;
+  const label = options.label || 'items';
+  const showViewToggle = options.showViewToggle !== false;
+  const currentView = getViewMode(scope);
+  const beforeId = `${scope}CollectionControls`;
+  const afterId = `${scope}PaginationControls`;
+
+  let controls = document.getElementById(beforeId);
+  if (!controls) {
+    controls = document.createElement('div');
+    controls.id = beforeId;
+    controls.className = 'collection-controls';
+    parent.insertBefore(controls, grid);
+  }
+
+  const rangeText = paged.total
+    ? `Showing ${paged.start + 1}–${paged.end} of ${paged.total} ${label}`
+    : `No ${label} found`;
+
+  controls.innerHTML = `
+    <div class="collection-status">${escapeHTML(rangeText)}</div>
+    ${showViewToggle ? `
+      <div class="view-toggle" aria-label="Choose card layout">
+        <button type="button" class="view-toggle-btn ${currentView === 'list' ? 'active' : ''}" data-view-scope="${escapeHTML(scope)}" data-view-mode="list" aria-pressed="${currentView === 'list'}">List</button>
+        <button type="button" class="view-toggle-btn ${currentView === 'grid' ? 'active' : ''}" data-view-scope="${escapeHTML(scope)}" data-view-mode="grid" aria-pressed="${currentView === 'grid'}">Grid</button>
+      </div>
+    ` : ''}
+  `;
+
+  controls.querySelectorAll('[data-view-scope]').forEach(button => {
+    button.addEventListener('click', () => setViewMode(button.dataset.viewScope, button.dataset.viewMode));
+  });
+
+  let pagination = document.getElementById(afterId);
+  if (!pagination) {
+    pagination = document.createElement('div');
+    pagination.id = afterId;
+    pagination.className = 'pagination-controls';
+    parent.insertBefore(pagination, grid.nextSibling);
+  }
+
+  if (paged.totalPages <= 1) {
+    pagination.innerHTML = '';
+    pagination.style.display = 'none';
+    return;
+  }
+
+  pagination.style.display = 'flex';
+  const pageButtons = [];
+  for (let i = 1; i <= paged.totalPages; i += 1) {
+    if (i === 1 || i === paged.totalPages || Math.abs(i - paged.page) <= 1) {
+      pageButtons.push(`<button type="button" class="page-number ${i === paged.page ? 'active' : ''}" data-page-scope="${escapeHTML(scope)}" data-page-number="${i}" aria-label="Go to page ${i}" aria-current="${i === paged.page ? 'page' : 'false'}">${i}</button>`);
+    } else if (!pageButtons[pageButtons.length - 1]?.includes('page-ellipsis')) {
+      pageButtons.push('<span class="page-ellipsis">…</span>');
+    }
+  }
+
+  pagination.innerHTML = `
+    <button type="button" class="page-step" data-page-scope="${escapeHTML(scope)}" data-page-number="${Math.max(1, paged.page - 1)}" ${paged.page === 1 ? 'disabled' : ''}>← Previous</button>
+    <div class="page-number-group">${pageButtons.join('')}</div>
+    <button type="button" class="page-step" data-page-scope="${escapeHTML(scope)}" data-page-number="${Math.min(paged.totalPages, paged.page + 1)}" ${paged.page === paged.totalPages ? 'disabled' : ''}>Next →</button>
+  `;
+
+  pagination.querySelectorAll('[data-page-scope]').forEach(button => {
+    button.addEventListener('click', () => {
+      const nextPage = Number(button.dataset.pageNumber || 1);
+      herbtropiaPageState[scope] = nextPage;
+      if (scope === 'listing') renderListings();
+      if (scope === 'event') renderEvents();
+      if (scope === 'education') renderEducation();
+      const target = document.querySelector('.search-panel') || grid;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+function parseDateForSort(value) {
+  if (!value) return Number.POSITIVE_INFINITY;
+  const raw = String(value).trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+    const [year, month, day] = raw.split('-').map(Number);
+    return new Date(year, month - 1, day, 12, 0, 0).getTime();
+  }
+  const parsed = new Date(raw);
+  return Number.isNaN(parsed.getTime()) ? Number.POSITIVE_INFINITY : parsed.getTime();
+}
+
+function timeForSort(value) {
+  const raw = String(value || '').trim();
+  const match = raw.match(/^(\d{1,2}):(\d{2})/);
+  if (!match) return 0;
+  return (Number(match[1]) * 60) + Number(match[2]);
+}
+
+function sortEventsByDate(a, b) {
+  const dateDiff = parseDateForSort(a.eventDate) - parseDateForSort(b.eventDate);
+  if (dateDiff !== 0) return dateDiff;
+  return timeForSort(a.startTime) - timeForSort(b.startTime);
+}
+
+function getEventMonthLabel(event) {
+  const raw = String(event.eventDate || '').trim();
+  let date;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+    const [year, month, day] = raw.split('-').map(Number);
+    date = new Date(year, month - 1, day, 12, 0, 0);
+  } else {
+    date = new Date(raw);
+  }
+  if (!date || Number.isNaN(date.getTime())) return 'Date TBD';
+  return date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+}
+
+function renderEventsWithMonthGroups(events) {
+  let lastMonth = '';
+  return events.map(event => {
+    const month = getEventMonthLabel(event);
+    const header = month !== lastMonth ? `<div class="event-month-heading"><span>${escapeHTML(month)}</span></div>` : '';
+    lastMonth = month;
+    return `${header}${renderEventCard(event)}`;
+  }).join('');
+}
+
+function renderListings() {
+  const grid = document.getElementById('listingGrid');
+  const empty = document.getElementById('listingEmpty');
+  const count = document.getElementById('listingCount');
+  if (!grid) return;
+  updateFilterBadge('listing');
+  const matches = state.listings.filter(listingMatches);
+  const paged = getPagedItems('listing', matches);
+  const viewMode = getViewMode('listing');
+
+  grid.classList.remove('card-view-list', 'card-view-grid');
+  grid.classList.add(`card-view-${viewMode}`);
+  grid.innerHTML = paged.items.map(renderListingCard).join('');
+
+  renderCollectionControls('listing', grid, paged, { label: `listing${matches.length === 1 ? '' : 's'}`, showViewToggle: true });
+  if (count) count.textContent = `${matches.length} listing${matches.length === 1 ? '' : 's'} showing`;
+  if (empty) empty.style.display = matches.length ? 'none' : 'block';
+  grid.style.display = matches.length ? 'grid' : 'none';
+  grid.querySelectorAll('[data-open-listing]').forEach(btn => {
+    btn.addEventListener('click', () => openListingModal(btn.dataset.openListing));
+  });
+}
+
+function renderEvents() {
+  const grid = document.getElementById('eventGrid');
+  const empty = document.getElementById('eventEmpty');
+  const count = document.getElementById('eventCount');
+  if (!grid) return;
+  updateFilterBadge('event');
+  const matches = state.events.filter(eventMatches).sort(sortEventsByDate);
+  const paged = getPagedItems('event', matches);
+  const viewMode = getViewMode('event');
+
+  grid.classList.remove('card-view-list', 'card-view-grid');
+  grid.classList.add(`card-view-${viewMode}`);
+  grid.innerHTML = renderEventsWithMonthGroups(paged.items);
+
+  renderCollectionControls('event', grid, paged, { label: `event${matches.length === 1 ? '' : 's'}`, showViewToggle: true });
+  if (count) count.textContent = `${matches.length} event${matches.length === 1 ? '' : 's'} showing`;
+  if (empty) empty.style.display = matches.length ? 'none' : 'block';
+  grid.style.display = matches.length ? 'grid' : 'none';
+  grid.querySelectorAll('[data-open-event]').forEach(btn => {
+    btn.addEventListener('click', () => openEventModal(btn.dataset.openEvent));
+  });
+}
+
+function estimateReadTime(resource) {
+  const text = [resource.summary, resource.description, resource.content, resource.body].filter(Boolean).join(' ');
+  const words = text.trim() ? text.trim().split(/\s+/).length : 700;
+  const minutes = Math.max(2, Math.min(12, Math.round(words / 180)) || 4);
+  return `${minutes} min read`;
+}
+
+function getEducationAuthor(resource) {
+  return resource.authorName || resource.addedBy || resource.sourceName || 'Herbtropia';
+}
+
+function renderEducation() {
+  const grid = document.getElementById('educationGrid');
+  const empty = document.getElementById('educationEmpty');
+  const count = document.getElementById('educationCount');
+  if (!grid) return;
+  const matches = state.education.filter(educationMatches);
+  const paged = getPagedItems('education', matches);
+
+  grid.classList.remove('card-view-list');
+  grid.classList.add('card-view-grid', 'education-blog-grid');
+  grid.innerHTML = paged.items.map(renderEducationCard).join('');
+
+  renderCollectionControls('education', grid, paged, { label: `resource${matches.length === 1 ? '' : 's'}`, showViewToggle: false });
+  if (count) count.textContent = `${matches.length} resource${matches.length === 1 ? '' : 's'} showing`;
+  if (empty) empty.style.display = matches.length ? 'none' : 'block';
+  grid.style.display = matches.length ? 'grid' : 'none';
+}
+
+function renderEducationCard(resource) {
+  const topic = displayLabels(resource.topic, EDUCATION_TOPIC_LABELS) || 'Education';
+  const type = displayLabels(resource.resourceType, RESOURCE_TYPE_LABELS) || 'Resource';
+  const level = displayLabels(resource.level, LEVEL_LABELS) || 'All Levels';
+  const url = normalizeUrl(resource.resourceUrl);
+  const title = resource.title || 'Untitled resource';
+  const summary = String(resource.summary || 'Curated wellness education resource.').trim();
+  const author = getEducationAuthor(resource);
+  const readTime = resource.readTime || estimateReadTime(resource);
+  const sourceLine = [author, resource.sourceName && resource.sourceName !== author ? resource.sourceName : '', level].filter(Boolean).join(' • ');
+  const imageUrl = resource.imageUrl || resource.photoUrl || resource.coverImageUrl || '';
+  const visual = imageUrl
+    ? `<img src="${escapeHTML(normalizeUrl(imageUrl))}" alt="${escapeHTML(title)}">`
+    : '<span class="education-leaf">⌁</span>';
+
+  return `<article class="education-card blog-card">
+    <a class="education-card-visual" ${url ? `href="${escapeHTML(url)}" target="_blank" rel="noopener"` : ''} aria-label="Open ${escapeHTML(title)}">
+      ${visual}
+    </a>
+    <div class="education-card-body">
+      <div class="education-card-meta-row">
+        <span class="education-topic">${escapeHTML(topic)}</span>
+        <span class="education-read-time">${escapeHTML(readTime)}</span>
+      </div>
+      <h3>${url ? `<a class="card-title-btn" href="${escapeHTML(url)}" target="_blank" rel="noopener">${escapeHTML(title)}</a>` : escapeHTML(title)}</h3>
+      <p class="card-desc">${escapeHTML(summary).slice(0, 190)}${summary.length > 190 ? '…' : ''}</p>
+      <div class="education-card-footer">
+        <span>${escapeHTML(sourceLine)}</span>
+        ${url ? `<a class="education-read-link" href="${escapeHTML(url)}" target="_blank" rel="noopener">Open →</a>` : `<span class="education-read-link muted">${escapeHTML(type)}</span>`}
+      </div>
+    </div>
+  </article>`;
+}
+
