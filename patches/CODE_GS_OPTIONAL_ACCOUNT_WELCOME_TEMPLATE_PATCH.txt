@@ -1,0 +1,79 @@
+OPTIONAL APPS SCRIPT PATCH FOR A SEPARATE BREVO ACCOUNT WELCOME TEMPLATE
+
+Your existing newsletter backend already accepts account signups because it handles type: "newsletter" and de-duplicates by email.
+This optional patch lets you use a separate Brevo template key, such as ACCOUNT_WELCOME, when the account flow sends welcomeTemplateKey.
+
+In Code.gs, inside sendNewsletterWelcome_(data), replace the current hardcoded template key usage with this pattern:
+
+function sendNewsletterWelcome_(data) {
+  const email = String(data.email || '').trim();
+  const templateKey = String(data.welcomeTemplateKey || data.templateKey || 'NEWSLETTER_WELCOME').trim() || 'NEWSLETTER_WELCOME';
+
+  if (!email) {
+    return {
+      ok: false,
+      method: 'none',
+      templateKey: templateKey,
+      error: 'Missing newsletter recipient email.'
+    };
+  }
+
+  data.email = email;
+
+  if (typeof hbSendTemplateWithFallbackLog_ === 'function') {
+    const brevoResult = hbSendTemplateWithFallbackLog_(
+      templateKey,
+      email,
+      data.name || [data.firstName, data.lastName].filter(Boolean).join(' ') || '',
+      data
+    );
+
+    if (brevoResult.ok) {
+      return {
+        ok: true,
+        method: 'brevo',
+        templateKey: templateKey,
+        statusCode: brevoResult.statusCode || '',
+        messageId: hbExtractBrevoMessageId_(brevoResult.response),
+        response: brevoResult.response || ''
+      };
+    }
+
+    var brevoError = brevoResult.error || '';
+  }
+
+  const htmlBody = `
+    <p>Hi ${escapeHtml_(data.name || data.firstName || 'there')},</p>
+    <p>Thank you for joining Herbtropia.</p>
+    <p>You’ll receive updates about saved wellness matches, new directory listings, upcoming wellness events, curated education, and Herbtropia community updates.</p>
+    <p>With care,<br>Herbtropia</p>
+  `;
+
+  try {
+    MailApp.sendEmail({
+      to: email,
+      subject: 'Welcome to Herbtropia 🌿',
+      htmlBody: htmlBody,
+      body: stripHtml_(htmlBody)
+    });
+
+    return {
+      ok: true,
+      method: 'mailapp-fallback',
+      templateKey: templateKey,
+      statusCode: '',
+      messageId: '',
+      error: typeof brevoError !== 'undefined' ? brevoError : ''
+    };
+
+  } catch (error) {
+    return {
+      ok: false,
+      method: 'failed',
+      templateKey: templateKey,
+      statusCode: '',
+      messageId: '',
+      error: String(error && error.message ? error.message : error)
+    };
+  }
+}

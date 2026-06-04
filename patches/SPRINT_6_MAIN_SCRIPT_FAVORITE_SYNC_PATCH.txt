@@ -1,0 +1,14 @@
+OPTIONAL BUT RECOMMENDED: Add this tiny hook inside your existing script.js toggleSavedItem(button) function.
+
+Find this line inside toggleSavedItem(button):
+
+  saveFavoriteItems(updated);
+  syncFavoriteButtons();
+
+Immediately AFTER syncFavoriteButtons(); add this:
+
+  if (window.HerbtropiaSupabase && typeof window.HerbtropiaSupabase.syncCurrentLocalFavoriteState === 'function') {
+    window.HerbtropiaSupabase.syncCurrentLocalFavoriteState(key);
+  }
+
+This keeps the existing localStorage save behavior, but when a user is logged in and the Supabase scripts are loaded on that page, the same favorite is also synced to the Supabase favorites table.

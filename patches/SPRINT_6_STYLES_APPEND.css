@@ -1,0 +1,36 @@
+/* ============================================
+   SPRINT 6 — PROFILE NAME + ROLE-AWARE DASHBOARD POLISH
+   ============================================ */
+.account-topbar h2[data-account-display-name] {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+  margin: 6px 0 10px;
+}
+
+.account-topbar p {
+  margin: 4px 0;
+  color: var(--text-secondary);
+}
+
+.account-topbar strong[data-account-email],
+.account-topbar strong[data-account-role] {
+  color: var(--forest);
+}
+
+.auth-status[data-status-type="success"] {
+  background: var(--sage-mist);
+  border-color: var(--sage-pale);
+  color: var(--forest);
+}
+
+.auth-status[data-status-type="error"] {
+  background: #fff3f0;
+  border-color: #f0c8bd;
+  color: #8c2f1b;
+}
+
+body[data-page="login"] .form-note {
+  line-height: 1.6;
+}

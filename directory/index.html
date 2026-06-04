@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EPSR727EMD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EPSR727EMD');
+</script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Herbtropia</title>
+  <meta name="description" content="Browse holistic practitioners, clinics, schools, studios, wellness businesses, and community organizations.">
+  <link rel="icon" type="image/png" href="/images/logos/1.png">
+  <link rel="apple-touch-icon" href="/images/logos/1.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="directory">
+  <nav class="nav" id="nav"><div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logos/7.png" alt="Herbtropia"></a>
+    <ul class="nav-links">
+      <li><a href="/directory/">Directory</a></li>
+      <li><a href="/events/">Events</a></li>
+      <li><a href="/education/">Education</a></li>
+      <li><a href="/saved/">Saved</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+  <div class="nav-mobile" id="mobileNav">
+    <div class="nav-mobile-inner">
+      <p class="menu-kicker">Herbtropia Directory</p>
+      <a href="/" onclick="closeMobile()">Home</a>
+      <a href="/wellness-match/" onclick="closeMobile()">Wellness Match Quiz</a>
+      <a href="/saved/" onclick="closeMobile()">Saved Matches</a>
+      <a href="/directory/" onclick="closeMobile()">Browse Directory</a>
+      <a href="/events/" onclick="closeMobile()">Find Events</a>
+      <a href="/education/" onclick="closeMobile()">Explore Education</a>
+      <div class="menu-action-grid">
+        <a href="/submit-listing/" onclick="closeMobile()"><span>Directory</span><strong>Submit a Listing</strong></a>
+        <a href="/submit-event/" onclick="closeMobile()"><span>Events</span><strong>Submit an Event</strong></a>
+        <a href="/newsletter/" onclick="closeMobile()"><span>Updates</span><strong>Join Newsletter</strong></a>
+      </div>
+      <p class="menu-note">Browse the directory, take the quiz, submit a listing, explore education, or join the weekly Herbtropia newsletter.</p>
+    </div>
+  </div>
+  <section class="page-hero"><div class="hero-gradient"></div><div class="container">
+    <div class="section-label">Wellness Directory</div>
+    <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Explore the<br><em>Wellness Directory</em></h1>
+    <p class="page-hero-sub">Browse holistic practitioners, clinics, schools, studios, wellness businesses, and community organizations by category, location, format, and wellness focus.</p>
+  </div></section>
+  <section class="search-panel"><div class="container">
+    <div class="directory-search-row" aria-label="Directory search"><input id="listingSearch" class="search-input" type="search" placeholder="Search name, city, specialty, school, business..."><div class="results-summary"><span id="listingCount">Loading listings...</span></div></div>
+    <div class="mobile-filter-toolbar" aria-label="Mobile directory filters"><button class="filter-drawer-trigger" type="button" id="openListingFilters" aria-controls="listingFilters" aria-expanded="false"><span class="filter-trigger-icon"><span></span><span></span><span></span></span><span>Filters</span><strong id="activeListingFilterCount">0</strong></button><button type="button" class="mobile-clear-link" id="mobileClearListingFilters">Clear</button></div>
+  </div></section>
+  <section class="directory-content"><div class="container"><div class="filter-backdrop" data-filter-backdrop></div><div class="directory-layout">
+      <aside class="filter-sidebar" id="listingFilters" aria-label="Directory filters"><div class="filter-sidebar-head"><div><span class="filter-kicker">Refine Results</span><h2>Filters</h2></div><div class="filter-head-actions"><button type="button" class="clear-btn" id="clearListingFilters">Clear all</button><button type="button" class="filter-close-btn" data-close-filters aria-label="Close filters">&times;</button></div></div><p class="filter-help">Check multiple options in each section to narrow the directory.</p><div class="filter-block">
+          <h3>Listing Type</h3>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="individual-practitioner"><span>Individual Practitioner</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="practice-clinic"><span>Practice / Clinic</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="wellness-business"><span>Wellness Business</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="wellness-studio-space"><span>Wellness Studio / Space</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="school-training-program"><span>School / Training Program</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="community-organization"><span>Community Organization</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="holistic-product-brand"><span>Holistic Product Brand</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="listingType" value="other"><span>Other</span></label>
+        </div><div class="filter-block">
+          <h3>Category / Modality</h3>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="acupuncture"><span>Acupuncture</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="herbalist"><span>Herbalist / Herbal Medicine</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="naturopathic"><span>Naturopathic Medicine</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="functional"><span>Functional Medicine</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="breathwork"><span>Breathwork</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="sound-healing"><span>Sound Healing</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="massage"><span>Massage / Bodywork</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="somatic"><span>Somatic Wellness</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="yoga"><span>Yoga / Movement</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="nutrition"><span>Nutrition</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="beauty-wellness"><span>Beauty + Wellness</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="category" value="other"><span>Other</span></label>
+        </div><div class="filter-block">
+          <h3>Location</h3>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="online"><span>Online / Virtual</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="phoenix"><span>Phoenix</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="mesa"><span>Mesa</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="gilbert"><span>Gilbert</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="tempe"><span>Tempe</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="scottsdale"><span>Scottsdale</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="chandler"><span>Chandler</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="location" value="other"><span>Other</span></label>
+        </div><div class="filter-block">
+          <h3>Format</h3>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="format" value="in-person"><span>In-Person</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="format" value="virtual"><span>Virtual</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="format" value="hybrid"><span>Hybrid</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="format" value="mobile"><span>Mobile Services</span></label>
+        </div><div class="filter-block">
+          <h3>Wellness Focus</h3>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="stress-relief"><span>Stress Relief</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="nervous-system"><span>Nervous System</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="pain-recovery"><span>Pain / Recovery</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="women-wellness"><span>Women’s Wellness</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="spiritual-wellness"><span>Spiritual Wellness</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="skin-body"><span>Skin / Body Care</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="herbal-support"><span>Herbal Support</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="movement"><span>Movement</span></label>
+          <label class="check-filter"><input type="checkbox" data-listing-filter="focus" value="community-healing"><span>Community Healing</span></label>
+        </div></aside>
+      <div class="results-area"><div class="directory-grid" id="listingGrid" aria-live="polite"></div><div class="empty-state" id="listingEmpty" style="display:none"><h3>No listings match these filters yet.</h3><a href="/submit-listing/" class="btn-primary">Submit a Listing <span class="arrow">→</span></a></div></div>
+    </div></div></section>
+  <section class="directory-action-strip"><div class="container"><div class="wide-cta-card reveal"><div><div class="section-label">For Wellness Providers</div><h2>Want to be listed on Herbtropia?</h2><p>Submit a listing for your practice, business, school, studio, organization, or wellness service.</p></div><a href="/submit-listing/" class="btn-dark">Submit a Listing →</a></div></div></section>
+  <div class="modal-backdrop" id="listingModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" type="button" data-close-modal aria-label="Close listing">&times;</button><div id="listingModalContent"></div></div></div>
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="footer-logo"><img src="/images/logos/1.png" alt="Herbtropia"></div><p>Herbtropia helps people discover holistic wellness listings, events, and curated education.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="/directory/">Directory</a><a href="/events/">Events</a><a href="/education/">Education</a><a href="/newsletter/">Newsletter</a></div>
+      <div class="footer-col"><h4>Submit</h4><a href="/submit-listing/">Submit a Listing</a><a href="/submit-event/">Submit an Event</a></div>
+      <div class="footer-col"><h4>Connect</h4><a href="mailto:hello@herbtropia.com">hello@herbtropia.com</a></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p><div class="footer-socials"><a href="https://instagram.com/herbtropia" target="_blank"><img src="/images/icons/instagram.png" alt="Instagram"></a><a href="https://tiktok.com/@herbtropia" target="_blank"><img src="/images/icons/tik-tok.png" alt="TikTok"></a><a href="https://www.youtube.com/@herbtropia"><img src="/images/icons/youtube.png" alt="YouTube"></a></div></div>
+  </div></footer>
+  
+  <script src="/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/herbtropia-supabase.js"></script>
+
+</body>
+</html>

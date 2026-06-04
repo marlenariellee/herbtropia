@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPSR727EMD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EPSR727EMD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practitioner Profile | Herbtropia</title>
+  <meta name="description" content="Create or edit your Herbtropia practitioner profile draft.">
+  <link rel="icon" type="image/png" href="/images/logos/1.png">
+  <link rel="apple-touch-icon" href="/images/logos/1.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="practitioner-onboarding">
+  <nav class="nav" id="nav"><div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/images/logos/7.png" alt="Herbtropia"></a>
+    <ul class="nav-links">
+      <li><a href="/account/">Account</a></li>
+      <li><a href="/submit-listing/">Submit Listing</a></li>
+      <li><a href="/directory/">Directory</a></li>
+    </ul>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div></nav>
+  <div class="nav-mobile" id="mobileNav">
+    <div class="nav-mobile-inner">
+      <p class="menu-kicker">Herbtropia</p>
+      <a href="/" onclick="closeMobile()">Home</a>
+      <a href="/account/" onclick="closeMobile()">Account</a>
+      <a href="/submit-listing/" onclick="closeMobile()">Submit Listing</a>
+      <a href="/directory/" onclick="closeMobile()">Browse Directory</a>
+    </div>
+  </div>
+
+  <section class="page-hero account-hero"><div class="hero-gradient"></div><div class="container">
+    <div class="section-label">Practitioner Account</div>
+    <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Create Your<br><em>Profile Draft</em></h1>
+    <p class="page-hero-sub">This is the first database-backed practitioner profile draft. For now, your public listing submission workflow can still run through the existing Submit Listing form.</p>
+  </div></section>
+
+  <section class="submit-block standalone-form-section"><div class="container"><div class="submit-grid">
+    <div class="submit-copy">
+      <div class="section-label reveal">Provider Tools</div>
+      <h2 class="section-title reveal reveal-delay-1">Start With<br><em>The Basics</em></h2>
+      <p class="reveal reveal-delay-2">This lets us test practitioner accounts without disrupting your existing public directory approval system.</p>
+      <p class="reveal reveal-delay-3"><strong>Important:</strong> This saves to Supabase as a draft. It does not replace your Google Sheets approval workflow yet.</p>
+    </div>
+
+    <div class="form-box reveal">
+      <h3>Practitioner Profile Draft</h3>
+      <p>Save your basic practitioner details to your Herbtropia account.</p>
+      <form id="practitionerProfileForm">
+        <input type="hidden" name="status" value="draft">
+        <div class="form-row">
+          <div class="form-group"><label for="listingName">Listing / Business Name *</label><input id="listingName" name="listing_name" class="form-input" type="text" required></div>
+          <div class="form-group"><label for="contactName">Contact Name *</label><input id="contactName" name="contact_name" class="form-input" type="text" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="practitionerEmail">Email *</label><input id="practitionerEmail" name="email" class="form-input" type="email" required></div>
+          <div class="form-group"><label for="category">Main Category</label><select id="category" name="category" class="form-input"><option value="">Choose one</option><option value="herbalist">Herbalist / Herbal Medicine</option><option value="naturopathic">Naturopathic Medicine</option><option value="functional">Functional Medicine</option><option value="nutrition">Nutrition</option><option value="somatic">Somatic Wellness</option><option value="massage">Massage / Bodywork</option><option value="yoga">Yoga / Movement</option><option value="other">Other</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="serviceFormat">Service Format</label><select id="serviceFormat" name="service_format" class="form-input"><option value="">Choose one</option><option value="in-person">In-Person</option><option value="virtual">Virtual</option><option value="hybrid">Hybrid</option><option value="mobile">Mobile</option></select></div>
+          <div class="form-group"><label for="wellnessFocus">Main Wellness Focus</label><select id="wellnessFocus" name="wellness_focus" class="form-input"><option value="">Choose one</option><option value="stress-relief">Stress Relief</option><option value="nervous-system">Nervous System</option><option value="pain-recovery">Pain / Recovery</option><option value="women-wellness">Women’s Wellness</option><option value="herbal-support">Herbal Support</option><option value="movement">Movement</option></select></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label for="city">City</label><input id="city" name="city" class="form-input" type="text" placeholder="Phoenix"></div>
+          <div class="form-group"><label for="state">State</label><input id="state" name="state" class="form-input" type="text" placeholder="AZ"></div>
+        </div>
+        <div class="form-group"><label for="bio">Short Bio</label><textarea id="bio" name="bio" class="form-input" placeholder="Who do you help and what do you offer?"></textarea></div>
+        <div class="form-group"><label for="services">Services</label><textarea id="services" name="services" class="form-input" placeholder="List your main services, packages, or offerings."></textarea></div>
+        <div class="form-row">
+          <div class="form-group"><label for="bookingLink">Booking Link</label><input id="bookingLink" name="booking_link" class="form-input" type="text" placeholder="bookinglink.com"></div>
+          <div class="form-group"><label for="website">Website</label><input id="website" name="website" class="form-input" type="text" placeholder="yourwebsite.com"></div>
+        </div>
+        <div class="form-group"><label for="instagram">Instagram</label><input id="instagram" name="instagram" class="form-input" type="text" placeholder="@handle"></div>
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Save Profile Draft <span class="arrow">→</span></button>
+        <p class="form-note">Next sprint can connect this to photo uploads, approval statuses, and public profile publishing.</p>
+      </form>
+      <div class="auth-status" data-auth-status></div>
+    </div>
+  </div></div></section>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p></div>
+  </div></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/script.js"></script>
+  <script src="/js/herbtropia-supabase.js"></script>
+</body>
+</html>
