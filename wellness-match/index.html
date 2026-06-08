@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPSR727EMD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EPSR727EMD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Your Wellness Match | Herbtropia</title>
+  <meta name="description" content="Take the Herbtropia Wellness Match Quiz to discover practitioners, events, and education based on your wellness goals.">
+  <link rel="icon" type="image/png" href="/images/logos/1.png">
+  <link rel="apple-touch-icon" href="/images/logos/1.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<body data-page="wellness-match">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" id="nav"><div class="nav-inner">
+  <a href="/" class="nav-logo"><img src="/images/logos/7.png" alt="Herbtropia"></a>
+  <ul class="nav-links">
+    <li><a href="/directory/">Directory</a></li>
+    <li><a href="/events/">Events</a></li>
+    <li><a href="/education/">Education</a></li>
+    <li><a href="/wellness-match/">Wellness Match</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div></nav>
+  <div class="nav-mobile" id="mobileNav" aria-hidden="true">
+  <div class="nav-mobile-inner">
+    <p class="menu-kicker">Menu</p>
+    <a href="/" onclick="closeMobile()">Home</a>
+    <a href="/wellness-match/" onclick="closeMobile()">Take Wellness Match Quiz</a>
+    <a href="/directory/" onclick="closeMobile()">Browse Directory</a>
+    <a href="/events/" onclick="closeMobile()">Find Events</a>
+    <a href="/education/" onclick="closeMobile()">Explore Education</a>
+    <a href="/login/" onclick="closeMobile()" data-auth-nav-link>Log In</a>
+    <a href="/signup/" onclick="closeMobile()" data-auth-create-link data-logged-out-only>Create Account</a>
+<div class="menu-action-grid">
+      <a href="/submit-listing/" onclick="closeMobile()"><span>Directory</span><strong>Submit a Listing</strong></a>
+      <a href="/submit-event/" onclick="closeMobile()"><span>Events</span><strong>Submit an Event</strong></a>
+      <a href="/newsletter/" onclick="closeMobile()"><span>Updates</span><strong>Join Newsletter</strong></a>
+    </div>
+    <p class="menu-note">Herbtropia is growing its Arizona wellness directory with reviewed listings, local events, beginner-friendly education, and personalized wellness discovery.</p>
+  </div>
+</div>
+
+  
+  <section class="page-hero"><div class="hero-gradient"></div><div class="container">
+    <div class="section-label">Wellness Match Quiz</div>
+    <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Find Your<br><em>Wellness Match</em></h1>
+    <p class="page-hero-sub">Answer a few quick questions so Herbtropia can recommend practitioners, events, and education based on your wellness goals.</p>
+  </div></section>
+
+  <section class="match-page-section"><div class="container"><div class="match-layout">
+    <aside class="match-copy-card reveal">
+      <div class="section-label">How It Works</div>
+      <h2>A guided starting point, not medical advice.</h2>
+      <p>Herbtropia uses your answers to organize discovery around what you care about most. The first version is rules-based and will get smarter as the directory, events, and education library grow.</p>
+      <div class="match-note-list">
+        <span>Choose your main wellness focus.</span>
+        <span>Tell us what kind of support feels helpful.</span>
+        <span>Get matched with relevant practitioners, events, and resources.</span>
+      </div>
+    </aside>
+
+    <div class="match-form-card reveal reveal-delay-1">
+      <h2>Start here.</h2>
+      <p>Pick the answers that best fit where you are right now. You can retake this anytime.</p>
+
+      <form id="wellnessMatchForm">
+        <fieldset class="match-question-block">
+          <legend>What are you most focused on right now? *</legend>
+          <div class="match-radio-grid">
+            <label class="match-radio-card"><input type="radio" name="condition" value="gut-health" required><span>Gut Health</span></label>
+            <label class="match-radio-card"><input type="radio" name="condition" value="anxiety" required><span>Anxiety</span></label>
+            <label class="match-radio-card"><input type="radio" name="condition" value="sleep" required><span>Sleep</span></label>
+            <label class="match-radio-card"><input type="radio" name="condition" value="womens-health" required><span>Women’s Health</span></label>
+            <label class="match-radio-card"><input type="radio" name="condition" value="chronic-pain" required><span>Chronic Pain</span></label>
+            <label class="match-radio-card"><input type="radio" name="condition" value="energy" required><span>Energy</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="match-question-block">
+          <legend>What kind of support do you want first?</legend>
+          <div class="match-radio-grid">
+            <label class="match-radio-card"><input type="radio" name="supportType" value="practitioner"><span>Practitioner</span></label>
+            <label class="match-radio-card"><input type="radio" name="supportType" value="event"><span>Event</span></label>
+            <label class="match-radio-card"><input type="radio" name="supportType" value="education"><span>Education</span></label>
+            <label class="match-radio-card"><input type="radio" name="supportType" value="all" checked><span>A mix of everything</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="match-question-block">
+          <legend>Do you prefer local or virtual support?</legend>
+          <div class="match-radio-grid">
+            <label class="match-radio-card"><input type="radio" name="locationPreference" value="local"><span>Local / In-person</span></label>
+            <label class="match-radio-card"><input type="radio" name="locationPreference" value="virtual"><span>Virtual</span></label>
+            <label class="match-radio-card"><input type="radio" name="locationPreference" value="both" checked><span>Both</span></label>
+          </div>
+        </fieldset>
+
+        <div class="match-question-block">
+          <label for="matchBudget">Budget comfort</label>
+          <select id="matchBudget" name="budget" class="form-input">
+            <option value="">No preference yet</option>
+            <option value="free-low-cost">Free or low-cost</option>
+            <option value="under-100">Under $100</option>
+            <option value="100-plus">$100+</option>
+            <option value="varies">It depends on the fit</option>
+          </select>
+        </div>
+
+        <div class="match-question-block">
+          <label for="matchEmail">Email, optional</label>
+          <input id="matchEmail" name="email" class="form-input" type="email" placeholder="you@email.com">
+          <p class="match-privacy-note">Sprint 1 stores your quiz result in your browser only. Backend collection will come later after we connect this to Google Sheets.</p>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Show My Recommendations <span class="arrow">→</span></button>
+      </form>
+    </div>
+  </div></div></section>
+  <footer class="footer"><div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><div class="footer-logo"><img src="/images/logos/1.png" alt="Herbtropia"></div><p>Herbtropia helps people discover holistic wellness listings, events, and curated education with less overwhelm.</p></div>
+      <div class="footer-col"><h4>Explore</h4><a href="/wellness-match/">Wellness Match</a><a href="/directory/">Directory</a><a href="/events/">Events</a><a href="/education/">Education</a><a href="/verified/">Herbtropia Verified</a></div>
+      <div class="footer-col"><h4>Submit</h4><a href="/submit-listing/">Submit a Listing</a><a href="/submit-event/">Submit an Event</a><a href="/for-practitioners/">For Practitioners</a><a href="/newsletter/">Newsletter</a></div>
+      <div class="footer-col"><h4>Trust</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/disclaimer/">Medical Disclaimer</a><a href="/contact/">Contact</a></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p><div class="footer-socials"><a href="https://instagram.com/herbtropia" target="_blank" rel="noopener"><img src="/images/icons/instagram.png" alt="Instagram"></a><a href="https://tiktok.com/@herbtropia" target="_blank" rel="noopener"><img src="/images/icons/tik-tok.png" alt="TikTok"></a><a href="https://www.youtube.com/@herbtropia" target="_blank" rel="noopener"><img src="/images/icons/youtube.png" alt="YouTube"></a></div></div>
+  </div></footer>
+
+  <script src="/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/js/herbtropia-supabase.js"></script>
+
+</body>
+</html>

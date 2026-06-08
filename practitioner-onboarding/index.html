@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPSR727EMD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EPSR727EMD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Provider Profile & Credential Review | Herbtropia</title>
+  <meta name="description" content="Create your Herbtropia provider profile draft and submit credential information for review.">
+  <link rel="icon" type="image/png" href="/images/logos/1.png">
+  <link rel="apple-touch-icon" href="/images/logos/1.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="practitioner-onboarding">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" id="nav"><div class="nav-inner">
+  <a href="/" class="nav-logo"><img src="/images/logos/7.png" alt="Herbtropia"></a>
+  <ul class="nav-links">
+    <li><a href="/directory/">Directory</a></li>
+    <li><a href="/events/">Events</a></li>
+    <li><a href="/education/">Education</a></li>
+    <li><a href="/wellness-match/">Wellness Match</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div></nav>
+  <div class="nav-mobile" id="mobileNav" aria-hidden="true">
+  <div class="nav-mobile-inner">
+    <p class="menu-kicker">Menu</p>
+    <a href="/" onclick="closeMobile()">Home</a>
+    <a href="/wellness-match/" onclick="closeMobile()">Take Wellness Match Quiz</a>
+    <a href="/directory/" onclick="closeMobile()">Browse Directory</a>
+    <a href="/events/" onclick="closeMobile()">Find Events</a>
+    <a href="/education/" onclick="closeMobile()">Explore Education</a>
+    <a href="/login/" onclick="closeMobile()" data-auth-nav-link>Log In</a>
+    <a href="/signup/" onclick="closeMobile()" data-auth-create-link data-logged-out-only>Create Account</a>
+<div class="menu-action-grid">
+      <a href="/submit-listing/" onclick="closeMobile()"><span>Directory</span><strong>Submit a Listing</strong></a>
+      <a href="/submit-event/" onclick="closeMobile()"><span>Events</span><strong>Submit an Event</strong></a>
+      <a href="/newsletter/" onclick="closeMobile()"><span>Updates</span><strong>Join Newsletter</strong></a>
+    </div>
+    <p class="menu-note">Herbtropia is growing its Arizona wellness directory with reviewed listings, local events, beginner-friendly education, and personalized wellness discovery.</p>
+  </div>
+</div>
+
+
+  <main id="main">
+    <section class="page-hero account-hero"><div class="hero-gradient"></div><div class="container">
+      <div class="section-label">Provider Account</div>
+      <h1 class="section-title" style="font-size:clamp(2.4rem,5vw,4rem)">Create Your<br><em>Provider Profile</em></h1>
+      <p class="page-hero-sub">Save your provider details and credential information so Herbtropia can review your listing readiness before anything is published publicly.</p>
+    </div></section>
+
+    <section class="submit-block standalone-form-section"><div class="container"><div class="submit-grid">
+      <div class="submit-copy">
+        <div class="section-label reveal">Provider Tools</div>
+        <h2 class="section-title reveal reveal-delay-1">Build Trust<br><em>From The Start</em></h2>
+        <p class="reveal reveal-delay-2">Your profile draft helps Herbtropia organize your business details, credentials, and review status before your public listing goes live.</p>
+        <p class="reveal reveal-delay-3"><strong>Note:</strong> A provider account does not automatically publish a listing. Directory listings are reviewed before appearing publicly.</p>
+      </div>
+
+      <div class="form-box reveal">
+        <h3>Provider Profile Draft</h3>
+        <p>Save your basic profile details and credential review information to your Herbtropia account.</p>
+        <form id="practitionerProfileForm">
+          <input type="hidden" name="status" value="draft">
+          <div class="form-row">
+            <div class="form-group"><label for="listingName">Listing / Business Name *</label><input id="listingName" name="listing_name" class="form-input" type="text" required></div>
+            <div class="form-group"><label for="contactName">Contact Name *</label><input id="contactName" name="contact_name" class="form-input" type="text" required></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="practitionerEmail">Email *</label><input id="practitionerEmail" name="email" class="form-input" type="email" required></div>
+            <div class="form-group"><label for="category">Main Category</label><select id="category" name="category" class="form-input"><option value="">Choose one</option><option value="herbalist">Herbalist / Herbal Medicine</option><option value="naturopathic">Naturopathic Medicine</option><option value="functional">Functional Medicine</option><option value="nutrition">Nutrition</option><option value="somatic">Somatic Wellness</option><option value="massage">Massage / Bodywork</option><option value="yoga">Yoga / Movement</option><option value="other">Other</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="serviceFormat">Service Format</label><select id="serviceFormat" name="service_format" class="form-input"><option value="">Choose one</option><option value="in-person">In-Person</option><option value="virtual">Virtual</option><option value="hybrid">Hybrid</option><option value="mobile">Mobile</option></select></div>
+            <div class="form-group"><label for="wellnessFocus">Main Wellness Focus</label><select id="wellnessFocus" name="wellness_focus" class="form-input"><option value="">Choose one</option><option value="stress-relief">Stress Relief</option><option value="nervous-system">Nervous System</option><option value="pain-recovery">Pain / Recovery</option><option value="women-wellness">Women’s Wellness</option><option value="herbal-support">Herbal Support</option><option value="movement">Movement</option></select></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label for="city">City</label><input id="city" name="city" class="form-input" type="text" placeholder="Phoenix"></div>
+            <div class="form-group"><label for="state">State</label><input id="state" name="state" class="form-input" type="text" placeholder="AZ"></div>
+          </div>
+          <div class="form-group"><label for="bio">Short Bio</label><textarea id="bio" name="bio" class="form-input" placeholder="Who do you help and what do you offer?"></textarea></div>
+          <div class="form-group"><label for="services">Services</label><textarea id="services" name="services" class="form-input" placeholder="List your main services, packages, or offerings."></textarea></div>
+          <div class="form-row">
+            <div class="form-group"><label for="bookingLink">Booking Link</label><input id="bookingLink" name="booking_link" class="form-input" type="text" placeholder="bookinglink.com"></div>
+            <div class="form-group"><label for="website">Website</label><input id="website" name="website" class="form-input" type="text" placeholder="yourwebsite.com"></div>
+          </div>
+          <div class="form-group"><label for="instagram">Instagram</label><input id="instagram" name="instagram" class="form-input" type="text" placeholder="@handle"></div>
+
+          <div class="credential-section">
+            <h4>Credential & Verification Information</h4>
+            <p>This helps Herbtropia understand whether your profile should display licensed, certified, or Herbtropia Verified language after review.</p>
+            <div class="credential-note-box">
+              <strong>Herbtropia Verified</strong> means Herbtropia reviewed submitted profile/contact/credential information. <strong>Licensed</strong> means a state government grants legal permission to practice. <strong>Certified</strong> means a private board, organization, or training program issued a credential.
+            </div>
+
+            <fieldset class="multi-check-group">
+              <legend>Credential Type</legend>
+              <div class="check-grid">
+                <label class="form-check-card"><input type="checkbox" name="credential_types" value="licensed"><span>Licensed by a state board/government agency</span></label>
+                <label class="form-check-card"><input type="checkbox" name="credential_types" value="certified"><span>Certified by a private board, program, or organization</span></label>
+                <label class="form-check-card"><input type="checkbox" name="credential_types" value="education-training"><span>Completed education/training but not licensed/certified</span></label>
+                <label class="form-check-card"><input type="checkbox" name="credential_types" value="not-applicable"><span>Not applicable to my offering</span></label>
+              </div>
+            </fieldset>
+
+            <div class="form-row">
+              <div class="form-group"><label for="licenseTitle">Licensed Title</label><input id="licenseTitle" name="license_title" class="form-input" type="text" placeholder="Licensed Acupuncturist, Chiropractor, etc."></div>
+              <div class="form-group"><label for="licenseNumber">License Number</label><input id="licenseNumber" name="license_number" class="form-input" type="text" placeholder="License number"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="licenseState">License State</label><input id="licenseState" name="license_state" class="form-input" type="text" placeholder="AZ"></div>
+              <div class="form-group"><label for="licensingBoard">Licensing Board / Agency</label><input id="licensingBoard" name="licensing_board" class="form-input" type="text" placeholder="Board or agency name"></div>
+            </div>
+            <div class="form-group"><label for="licenseVerificationUrl">License Verification URL</label><input id="licenseVerificationUrl" name="license_verification_url" class="form-input" type="url" placeholder="https://..."></div>
+
+            <div class="form-row">
+              <div class="form-group"><label for="certificationTitle">Certification Title</label><input id="certificationTitle" name="certification_title" class="form-input" type="text" placeholder="Certified Holistic Nutritionist, etc."></div>
+              <div class="form-group"><label for="certificationIssuer">Certification Issuer</label><input id="certificationIssuer" name="certification_issuer" class="form-input" type="text" placeholder="School, board, organization"></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label for="certificationId">Certification ID / Number</label><input id="certificationId" name="certification_id" class="form-input" type="text" placeholder="If applicable"></div>
+              <div class="form-group"><label for="certificationVerificationUrl">Certification Verification URL</label><input id="certificationVerificationUrl" name="certification_verification_url" class="form-input" type="url" placeholder="https://..."></div>
+            </div>
+            <div class="form-group"><label for="credentialNotes">Credential Notes</label><textarea id="credentialNotes" name="credential_notes" class="form-input" placeholder="Anything Herbtropia should know when reviewing your credentials?"></textarea></div>
+            <label class="form-check-card consent-line verification-consent">
+              <input type="checkbox" name="verification_requested" value="yes">
+              <span>I would like Herbtropia to review my submitted profile and credential information for potential Herbtropia Verified status.</span>
+            </label>
+            <label class="form-check-card consent-line verification-consent">
+              <input type="checkbox" name="verification_consent" value="yes">
+              <span>I confirm this information is accurate and understand Herbtropia may ask for clarification before displaying verification-related language publicly.</span>
+            </label>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Save Provider Profile <span class="arrow">→</span></button>
+          <p class="form-note">Public directory listings remain reviewed before publishing. Herbtropia Verified is a profile review signal, not a medical/legal endorsement or guarantee of outcomes.</p>
+        </form>
+        <div class="auth-status" data-auth-status></div>
+      </div>
+    </div></div></section>
+  </main>
+
+  <footer class="footer"><div class="container">
+    <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p></div>
+  </div></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/script.js"></script>
+  <script src="/js/practitioner-credentials-save.js"></script>
+</body>
+</html>

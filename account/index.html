@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EPSR727EMD"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-EPSR727EMD');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account | Herbtropia</title>
+  <meta name="description" content="View your Herbtropia account, saved wellness finds, quiz results, and practitioner profile tools.">
+  <link rel="icon" type="image/png" href="/images/logos/1.png">
+  <link rel="apple-touch-icon" href="/images/logos/1.png">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="account">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="nav" id="nav"><div class="nav-inner">
+  <a href="/" class="nav-logo"><img src="/images/logos/7.png" alt="Herbtropia"></a>
+  <ul class="nav-links">
+    <li><a href="/directory/">Directory</a></li>
+    <li><a href="/events/">Events</a></li>
+    <li><a href="/education/">Education</a></li>
+    <li><a href="/wellness-match/">Wellness Match</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div></nav>
+  <div class="nav-mobile" id="mobileNav" aria-hidden="true">
+  <div class="nav-mobile-inner">
+    <p class="menu-kicker">Menu</p>
+    <a href="/" onclick="closeMobile()">Home</a>
+    <a href="/wellness-match/" onclick="closeMobile()">Take Wellness Match Quiz</a>
+    <a href="/directory/" onclick="closeMobile()">Browse Directory</a>
+    <a href="/events/" onclick="closeMobile()">Find Events</a>
+    <a href="/education/" onclick="closeMobile()">Explore Education</a>
+    <a href="/login/" onclick="closeMobile()" data-auth-nav-link>Log In</a>
+    <a href="/signup/" onclick="closeMobile()" data-auth-create-link data-logged-out-only>Create Account</a>
+<div class="menu-action-grid">
+      <a href="/submit-listing/" onclick="closeMobile()"><span>Directory</span><strong>Submit a Listing</strong></a>
+      <a href="/submit-event/" onclick="closeMobile()"><span>Events</span><strong>Submit an Event</strong></a>
+      <a href="/newsletter/" onclick="closeMobile()"><span>Updates</span><strong>Join Newsletter</strong></a>
+    </div>
+    <p class="menu-note">Herbtropia is growing its Arizona wellness directory with reviewed listings, local events, beginner-friendly education, and personalized wellness discovery.</p>
+  </div>
+</div>
+
+
+  <main id="main">
+    <section class="page-hero account-hero">
+      <div class="hero-gradient"></div>
+      <div class="container">
+        <div class="section-label">My Herbtropia</div>
+        <h1 class="section-title">Your Wellness<br><em>Dashboard</em></h1>
+        <p class="page-hero-sub">Keep your wellness matches, saved finds, and provider tools in one calm place.</p>
+      </div>
+    </section>
+
+    <section class="account-section">
+      <div class="container account-shell">
+        <div class="auth-status" data-account-status>Loading account...</div>
+
+        <div data-account-signed-out style="display:none" class="account-empty-card account-signout-box">
+          <div class="account-empty-icon">⌁</div>
+          <span class="filter-kicker">Account Access</span>
+          <h2>Sign in to view your dashboard.</h2>
+          <p>Your account stores saved practitioners, events, education resources, and Wellness Match results.</p>
+          <a class="btn-primary" href="/login/">Log In <span class="arrow">→</span></a>
+        </div>
+
+        <div data-account-signed-in style="display:none" class="account-dashboard-wrap">
+          <div class="account-overview-card">
+            <div class="account-overview-main">
+              <div class="account-avatar" aria-hidden="true">H</div>
+              <div>
+                <span class="filter-kicker">Signed in as</span>
+                <h2 data-account-display-name></h2>
+                <p class="account-welcome-copy">Welcome back to your personal Herbtropia dashboard.</p>
+              </div>
+            </div>
+
+            <div class="account-meta-grid" aria-label="Account details">
+              <div class="account-meta-pill">
+                <span>Email</span>
+                <strong data-account-email></strong>
+              </div>
+              <div class="account-meta-pill">
+                <span>Account Type</span>
+                <strong data-account-role></strong>
+              </div>
+            </div>
+
+            <div class="account-overview-actions">
+              <a class="btn-outline-dark" href="/wellness-match/">Retake Quiz</a>
+              <button class="btn-outline-dark" type="button" data-sign-out>Sign Out</button>
+            </div>
+          </div>
+
+          <div class="account-dashboard-grid">
+            <section class="account-panel account-panel-feature">
+              <div class="panel-headline-row">
+                <div>
+                  <div class="section-label">Quiz Results</div>
+                  <h2 class="section-title">Wellness Match</h2>
+                </div>
+                <a class="account-panel-link" href="/wellness-match/">Retake →</a>
+              </div>
+              <div data-account-quiz></div>
+            </section>
+
+            <section class="account-panel account-panel-feature">
+              <div class="panel-headline-row">
+                <div>
+                  <div class="section-label">Saved</div>
+                  <h2 class="section-title">Saved Finds</h2>
+                </div>
+                <a class="account-panel-link" href="/directory/">Browse →</a>
+              </div>
+              <div data-account-favorites></div>
+            </section>
+
+            <section class="account-panel account-panel-full" data-practitioner-tools-panel style="display:none">
+              <div class="panel-headline-row">
+                <div>
+                  <div class="section-label">Practitioner Tools</div>
+                  <h2 class="section-title">Provider Dashboard</h2>
+                </div>
+                <a class="account-panel-link" href="/submit-listing/">Submit →</a>
+              </div>
+              <div data-practitioner-status></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo"><img src="/images/logos/1.png" alt="Herbtropia"></div><p>Herbtropia helps people discover holistic wellness listings, events, and curated education with less overwhelm.</p></div>
+        <div class="footer-col"><h4>Explore</h4><a href="/wellness-match/">Wellness Match</a><a href="/directory/">Directory</a><a href="/events/">Events</a><a href="/education/">Education</a><a href="/verified/">Herbtropia Verified</a></div>
+        <div class="footer-col"><h4>Submit</h4><a href="/submit-listing/">Submit a Listing</a><a href="/submit-event/">Submit an Event</a><a href="/for-practitioners/">For Practitioners</a><a href="/newsletter/">Newsletter</a></div>
+        <div class="footer-col"><h4>Trust</h4><a href="/privacy/">Privacy Policy</a><a href="/terms/">Terms of Use</a><a href="/disclaimer/">Medical Disclaimer</a><a href="/contact/">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><p>&copy; 2026 Herbtropia Co.</p><div class="footer-socials"><a href="https://instagram.com/herbtropia" target="_blank" rel="noopener"><img src="/images/icons/instagram.png" alt="Instagram"></a><a href="https://tiktok.com/@herbtropia" target="_blank" rel="noopener"><img src="/images/icons/tik-tok.png" alt="TikTok"></a><a href="https://www.youtube.com/@herbtropia" target="_blank" rel="noopener"><img src="/images/icons/youtube.png" alt="YouTube"></a></div></div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/supabase-config.js"></script>
+  <script src="/script.js"></script>
+  <script src="/js/herbtropia-supabase.js"></script>
+</body>
+</html>
